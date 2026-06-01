@@ -160,7 +160,6 @@ def main() -> int:
     parser.add_argument("--keep-old-image", action="store_true", help="copy old image to backup but keep it in place")
     parser.add_argument("--generate", action="store_true", help="run generate_images.py after marking")
     parser.add_argument("--backend", help="backend override forwarded to generate_images.py")
-    parser.add_argument("--no-build-html", action="store_true", help="skip build_html.py after marking/generation")
     args = parser.parse_args()
 
     project_dir = args.project_dir.resolve()
@@ -181,11 +180,9 @@ def main() -> int:
             command.extend(["--backend", args.backend])
         run_command(command, cwd=skill_root)
 
-    if not args.no_build_html:
-        run_command(
-            [sys.executable, str(skill_root / "scripts" / "build_html.py"), str(project_dir)],
-            cwd=skill_root,
-        )
+    # HTML 由 Web Renderer（模型）按 references/08-web-renderer.md 重写受影响页；
+    # 本脚本只负责标记/出图，不再调用模板渲染。
+    print(f"已标记重生：{', '.join(slide_ids)}。请让 Web Renderer 按 08 契约重写这些页的 <section>。")
     return 0
 
 

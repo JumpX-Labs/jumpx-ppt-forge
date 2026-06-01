@@ -153,7 +153,7 @@
             "image-text",
             "closing"
           ],
-          "description": "Matches assets/templates/layouts/<layout_type>.html.snippet filename."
+          "description": "Layout hint for the Web Renderer (model designs the page accordingly); not tied to any template file."
         },
         "image_requirement": {
           "type": "object",

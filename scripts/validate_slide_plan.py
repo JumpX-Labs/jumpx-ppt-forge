@@ -60,13 +60,11 @@ def validate(plan_path: Path, skill_root: Path) -> tuple[list[str], list[str]]:
             errors.append(f"duplicate page_id: {page_id}")
         seen.add(page_id)
 
+        # layout_type 是给渲染器的“版面建议”（模型直接写 HTML 时据此构图）；
+        # 只校验取值在已知集合内，不再要求存在模板 snippet（模板渲染已移除）。
         layout_type = page.get("layout_type")
         if layout_type not in ALLOWED_LAYOUTS:
             errors.append(f"{page_id}: unsupported layout_type {layout_type!r}")
-        else:
-            snippet = skill_root / "assets" / "templates" / "layouts" / f"{layout_type}.html.snippet"
-            if not snippet.exists():
-                errors.append(f"{page_id}: missing layout snippet {snippet}")
 
         risk = (page.get("image_requirement") or {}).get("text_in_image_risk")
         if risk == "high":

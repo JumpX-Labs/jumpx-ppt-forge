@@ -13,7 +13,7 @@
 - 根据用户指定的页码或 `page_id` 标记局部重生。
 - 备份旧 Prompt / 图片资产。
 - 更新 `images_manifest.json` 状态。
-- 需要时串联 `generate_images.py` 与 `build_html.py`。
+- 需要时调 `generate_images.py` 出图；HTML 由 Web Renderer（模型）按 08 契约重写相关页。
 
 ---
 
@@ -49,13 +49,7 @@ Selectors 支持：
 python3 scripts/generate_images.py <project-dir> --only P03 --force
 ```
 
-默认会重跑：
-
-```bash
-python3 scripts/build_html.py <project-dir>
-```
-
-传 `--no-build-html` 可跳过。
+出图/标记完成后，由 Web Renderer（模型）按 [`08-web-renderer.md`](08-web-renderer.md) 重写受影响页的 `<section>`（或整本 `index.html`）。
 
 ---
 

@@ -18,7 +18,7 @@
 
 - 不审核事实与叙事逻辑；那是 Reviewer。
 - 不整理最终目录和 README；那是 Producer。
-- 不绕过 `build_html.py` 手写 HTML。
+- 不发明 `style_lock.json` 之外的配色/字体（守的就是 style_lock）。
 
 ---
 
@@ -66,9 +66,9 @@
 
 | 问题 | 处理 |
 |------|------|
-| 颜色 / 字体与 Style Lock 不一致 | 修 `style_lock.json` 或 preset CSS，重新跑 `build_html.py` |
+| 颜色 / 字体与 Style Lock 不一致 | 指出偏差，让 Web Renderer 按 `style_lock.json` 重写相关页 |
 | Preset 漂移严重 | 回到 Gate 4 让用户重审风格，或切换 preset 后重跑 Step 6–7 |
-| HTML 残留 `{{...}}` | 修 layout snippet / `build_html.py`，重跑 `build_html.py` |
+| 某页版式/可读性差（溢出、层级乱） | 让 Web Renderer 按 08 硬契约重写该页 |
 | Mixed 有图页文件缺失 | 若 backend 可用，跑 `generate_images.py` 或 `regenerate_slide.py <project> PNN --generate`；否则在 QA 中标 warning |
 | 图片生成失败但 HTML 可读 | `qa_report.md` 标 warning，不阻塞 html-takeover / html-only-with-prompts |
 | 图片生成失败且用户只要 Image | Gate 5 fail，必须重试、换 backend 或改为 HTML takeover |

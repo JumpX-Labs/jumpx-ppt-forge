@@ -45,7 +45,7 @@
 | 05 | Writer | 写逐页 `slide_plan.json`：标题/可见文本/讲稿（**可改层** · 决定"写多厚"）|
 | 06 | Reviewer | 叙事审核，最多自动返工 1 轮 |
 | 07 | Designer | 定风格、生成 `style_lock.json`（设计 token）|
-| 08 | Web Renderer | **模型直接写 HTML**（主路径）；脚本模板为回退 |
+| 08 | Web Renderer | **模型按设计 token 直接写 HTML**（唯一渲染路径，无模板）|
 | 09 | Image Renderer | 每页 Prompt 落盘 + 调图片 backend |
 | 10 | Style Guard | 渲染后核对是否守住 style_lock |
 | 11 | Producer | 交付目录、命名、结果可见性 |
@@ -67,18 +67,14 @@ schema 见 [`../schemas/`](../schemas/)。
 
 ---
 
-## 渲染：两条路径
+## 渲染：模型直接写 HTML（唯一路径）
 
-**主路径 —— 模型直接写 HTML**（`references/08-web-renderer.md`）：
-模型拿 `slide_plan.json` + `style_lock.json`，**直接写出单文件 `index.html`**，每页按内容自由设计版面。必须遵守**硬契约**让产物可演示/可导出：
+模型拿 `slide_plan.json` + `style_lock.json`（设计 token），**直接写出单文件 `index.html`**，每页按内容自由设计版面（`references/08-web-renderer.md`）。必须遵守**硬契约**让产物可演示/可导出：
 - `<main id="deck">` 内每页一个 `<section class="slide">`（100vw×100vh，16:9）；
 - `transform: translateX(-i*100vw)` 翻页 + 键盘/触摸/ESC 索引；
-- 全内联、自包含、不引外部资源；不溢出。
+- 全内联、自包含、不引外部资源；不溢出；配色/字体来自 `style_lock`。
 
-**回退路径 —— 脚本模板**（`scripts/build_html.py` + `assets/templates/layouts/*` + `assets/styles/*.css`）：
-确定性地把 `slide_plan` 填进 10 种固定版式片段。质量受模板封顶，仅在"需纯脚本可复现 / 批量 / 无人值守"时用。
-
-> 为什么主路径能产出更好版式，见 [`WHY-IT-WORKS.md`](WHY-IT-WORKS.md)。
+> **没有模板回退**：旧的"填模板片段"渲染（build_html + layout snippets）已彻底移除——版式质量不再被模板封顶。为什么这样更好，见 [`WHY-IT-WORKS.md`](WHY-IT-WORKS.md)。`layout_type` 现仅作"版面建议"，由模型据此构图。
 
 ---
 
@@ -97,7 +93,7 @@ schema 见 [`../schemas/`](../schemas/)。
 
 ## 脚本（纯 stdlib，不含 LLM）
 
-`build_html.py`（回退渲染）· `validate_slide_plan.py` / `validate_html.py` / `validate_context_lock.py` / `validate_images_manifest.py`（校验）· `generate_images.py` / `export_images_manifest.py` / `probe_image_backend.py`（出图）· `regenerate_slide.py`（局部重生）。
+`validate_slide_plan.py` / `validate_html.py` / `validate_context_lock.py` / `validate_images_manifest.py`（校验）· `generate_images.py` / `export_images_manifest.py` / `probe_image_backend.py`（出图）· `regenerate_slide.py`（标记局部重生）。HTML 由模型直接写，无渲染脚本。
 
 ---
 

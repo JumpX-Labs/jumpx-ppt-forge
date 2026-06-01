@@ -1,6 +1,6 @@
 # 15 — Export Contract
 
-> Step 9 落地文档。三种最终交付目录树、文件命名规则、build_html 拼装策略。
+> Step 9 落地文档。三种最终交付目录树、文件命名规则、HTML 渲染契约（模型直接写）。
 
 ---
 
@@ -53,7 +53,7 @@ Mixed 验收步骤：
 1. `source/slide_plan.json.deck_meta.output_mode` 必须为 `mixed`。
 2. 至少 1 页 `image_requirement.needed == true`；训练营样例建议 2-3 页。
 3. 有图页的文件位于 `images/slide-NN.png` / `.jpg` / `.jpeg` / `.webp`。
-4. `build_html.py` 必须在图片生成或本地占位图准备之后运行。
+4. HTML 必须在图片生成或本地占位图准备之后再渲染。
 5. `index.html` 中对应页出现 `<img src="images/slide-NN...">`；缺图时出现 `Image pending (slide-NN)`，不得出现断裂图片。
 6. `qa_report.md` 记录图片状态；manifest pending 可 warning，但 HTML 可见不应阻塞交付。
 
@@ -167,8 +167,8 @@ Mixed 验收步骤：
 
 ## 怎么改
 
-- 改文字：编辑 `source/slide_plan.json` 后重新运行 `python3 scripts/build_html.py <project>`。
-- 改风格：回到 Gate 4 修改 `source/style_lock.json`，再重跑 HTML / Image。
+- 改文字：编辑 `source/slide_plan.json` 后，让 Web Renderer 按 08 契约重写 `index.html`。
+- 改风格：回到 Gate 4 修改 `source/style_lock.json`，再重新渲染。
 - 局部重生：运行 `python3 scripts/regenerate_slide.py <project> PNN`。
 
 ## 怎么续生（image-only / html-takeover 场景）
@@ -188,107 +188,33 @@ Mixed 验收步骤：
 
 ---
 
-## build_html.py 拼装策略
+## HTML 渲染契约（模型直接写）
 
-**决策**：模板 + 占位符替换 + layout snippet 拼接。**不引入模板引擎**（Jinja / Mustache / Handlebars 均不用）；仅依赖 Python 标准库与仓库内脚本，无需 npm 构建。
+HTML 由 Web Renderer（模型）按 [`08-web-renderer.md`](08-web-renderer.md) **直接编写 `index.html`**（无模板拼装、无 layout snippet）。本节只列与"交付"相关的硬性约束。
 
-**输入**：
+**产物**：`<project>/index.html` —— 完全自包含、CSS/JS 全内联、可双击打开、16:9 横向翻页。
 
-```
-slide_plan.json
-style_lock.json
-context_pack.md（可选，用于 README）
-assets/templates/web-slide-template.html
-assets/templates/web-slide-template-minimal.html（系统字体回退版）
-assets/styles/<style_name>.css
-assets/templates/layouts/<layout_type>.html.snippet（每种 layout 一个 snippet）
-```
+**结构契约**（演示/导出依赖）：
 
-**输出**：
+- `<main id="deck">` 内每页一个 `<section class="slide" data-page-id="P01" data-layout="...">`；slide 数 = `deck_meta.total_pages`。
+- 切页 `deck.style.transform = translateX(-i*100vw)`；含键盘 ←→ / 触摸 / ESC 缩略图索引。
+- `speaker_notes` 放进 `<aside class="notes" hidden>`，不影响视觉。
 
-```
-<project>/index.html        # 完全自包含；CSS 内联；可双击打开
-```
+**安全 / 转义（模型必须遵守）**：
 
-**拼装步骤**：
-
-```
-1. read style_lock.json
-2. read template = assets/templates/web-slide-template.html
-3. inline CSS:
-   read assets/styles/<style_name>.css
-   substitute :root vars from style_lock (primary_color, accent_color, font_*, density tokens)
-   write into template's <style> block
-4. for each page in slide_plan.json:
-     snippet = read assets/templates/layouts/<page.layout_type>.html.snippet
-     fill placeholders: {{page_title}}, {{key_message}}, {{on_slide_text}}, etc.
-     if page.image_requirement.generated_image_path exists and file is present:
-        substitute {{image_block}} = <img src="that path">
-     else if images/slide-NN.{png,jpg,jpeg,webp} exists:
-        substitute {{image_block}} = <img src="images/slide-NN.ext">
-     else if page.image_requirement.needed is true:
-        substitute {{image_block}} = Image pending (slide-NN)
-     else:
-        substitute {{image_block}} = no-image text placeholder
-     append <section data-page-id="..." data-layout="..."> ... </section>
-5. inject inline JS for keyboard/swipe/ESC index (one-time copy from web-slide-template.html bottom <script>)
-6. write index.html
-```
-
-**Layout snippet 命名约定**：
-
-```
-assets/templates/layouts/
-├── cover.html.snippet
-├── section-divider.html.snippet
-├── big-idea.html.snippet
-├── two-column.html.snippet
-├── quote.html.snippet
-├── framework.html.snippet
-├── timeline.html.snippet
-├── comparison.html.snippet
-├── image-text.html.snippet
-└── closing.html.snippet
-```
-
-10 种页面类型与 `slide_plan.json` 的 `layout_type` 一一对应；每种是一个**纯 HTML 片段**（无 `<html>` / `<head>` 外壳），里面用 `{{...}}` 占位。
-
-**占位符规则**：
-
-- `{{page_title}}` → `page.page_title`
-- `{{key_message}}` → `page.key_message`
-- `{{on_slide_text}}` → `page.on_slide_text`，多行用 `\n\n` 分段
-- `{{image_src}}` → `page.image_requirement.generated_image_path`、`images/slide-NN.png` 或空（没图时片段须能优雅退化为占位色块）
-- `{{image_block}}` → 完整 `<img src="images/slide-NN.ext">` 或明确占位；只有 layout snippet 可决定它出现在哪里
-- `{{speaker_notes}}` → 写入 `<aside class="notes" hidden>`，不影响视觉
-- `{{page_role}}` → `data-role` 属性，便于 CSS 区分 cover / divider / content
-- 不出现在 slide_plan 中的占位符 → 替换为空字符串（不要保留 `{{...}}` 字面值）
-
-**HTML escaping 规则**：
-
-- `page_title` / `key_message` / `on_slide_text.*` / `speaker_notes` / `caption` 等来自用户或 LLM 的文本字段，默认必须用 Python 标准库 `html.escape(value, quote=True)` 转义后再替换。
-- 数组字段先逐项 escape，再由 `build_html.py` 拼成 `<li>`、`<p>` 或 snippet 约定的结构；不要把原始数组 `str(list)` 写进 HTML。
-- `image_src` 只能来自本项目相对路径白名单（`images/slide-NN.png` / `.jpg` / `.jpeg` / `.webp` 或空字符串），不能接收用户任意 URL / JS URL。
-- `image_block` 同样只能引用上述白名单路径；Mixed 不允许外链图片作为最终交付依赖。
-- 只有 layout snippet 中已经写死的标签结构可进入最终 HTML；不支持把 Markdown 自动渲染进 slide body。
-- 生成后 `validate_html.py` 必须检查最终 `index.html` 中没有残留 `{{...}}` 占位符。
+- 来自用户/LLM 的文本（标题/要点/备注/caption）按 HTML 文本安全处理，不得注入可执行内容。
+- 可见图片只允许本项目相对路径白名单 `images/slide-NN.{png,jpg,jpeg,webp}`；禁止外链 `http(s)://` / `data:` / `javascript:` 或任意用户输入路径。
+- 全内联、不引任何外部资源（CDN / 外链字体 / 远程脚本）。
 
 **validate_slide_plan.py 语义检查（JSON Schema 之外）**：
 
-JSON Schema 只负责字段形状；`validate_slide_plan.py` 还必须额外检查：
-
 - `deck_meta.total_pages == len(pages)`
 - `page_id` 唯一、连续、从 `P01` 开始，并与数组顺序一致
-- 每个 `layout_type` 都存在对应 `assets/templates/layouts/<layout_type>.html.snippet`
+- `layout_type` 取值在已知集合内（作为版面建议；不要求存在模板文件）
 - `deck_meta.style_name` 与 `source/style_lock.json.style_name` 一致（当 style lock 已存在）
 - `image_requirement.text_in_image_risk == "high"` 时给 warning，提示优先 HTML 或减少可见文字
 
-**禁止**：
-
-- ❌ 在 build_html.py 里调用 LLM
-- ❌ 在 build_html.py 里临时生成 CSS
-- ❌ 在 build_html.py 里改 `style_lock.json` 的值
-- ❌ 引入 npm / pip 额外依赖（标准库 + 已声明的项目依赖）
+**validate_html.py**：检查 `index.html` 存在、有 `#deck` + 正确数量的 `.slide`、含翻页/索引脚本、无残留 `{{...}}` 占位符、自包含无外链。
 
 ---
 

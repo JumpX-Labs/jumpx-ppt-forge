@@ -11,7 +11,7 @@
 | Step 2 Context Pack | 根据场景、受众、输出形态选择 `style_name` |
 | Step 4 Writer | 根据 preset 控制页面密度、layout 倾向、图片页比例 |
 | Step 6 Designer | 从 `assets/style-presets/<style_name>.json` 写入 `style_lock.json` |
-| Step 7B Web Renderer | `build_html.py` 按 `style_lock.style_name` 加载 `assets/styles/<style_name>.css` |
+| Step 7B Web Renderer | 模型按 `style_lock` 的设计 token（配色/字体/density/layout_bias）直接写 HTML/CSS |
 | Step 7A Image Renderer | 从 preset 的 `image_style_description` 与 `negative_constraints` 生成每页 prompt |
 | Step 8 Style Guard | 对照 preset 检查风格漂移 |
 
@@ -50,19 +50,14 @@
 
 ### HTML
 
-HTML preset 是真实 CSS，必须保存在：
+每套风格的**设计 token** 在 `assets/style-presets/<style_name>.json`（配色/字体/density/layout_bias/mood 等）；Designer 据此写 `style_lock.json`。
 
-```text
-assets/styles/<style_name>.css
-```
+`assets/styles/<style_name>.css` 是该风格的**参考实现/视觉基准**（人看、做风格定义参考）。
 
-Web Renderer 的契约：
+Web Renderer 的契约（见 [`08-web-renderer.md`](08-web-renderer.md)）：
 
-- 不手写最终 `index.html`。
-- 由 `scripts/build_html.py <project>` 读取 `source/style_lock.json`。
-- 根据 `style_lock.style_name` 加载对应 CSS。
-- CSS 适配现有 10 种 layout 片段。
-- CSS 不应覆盖 `build_html.py` 注入的核心变量：`--asp-bg`、`--asp-ink`、`--asp-accent`、`--asp-font-heading`、`--asp-font-body`。需要扩展时使用新变量。
+- **模型按 `style_lock` 的设计 token 直接写 `index.html` 的 HTML/CSS**（不填模板、不加载固定 CSS 文件）。
+- 配色/字体只能来自 `style_lock`；版式由模型按内容自由设计，并守住 `style_lock.forbidden`。
 
 ### Image
 

@@ -134,7 +134,7 @@ python3 scripts/generate_images.py <project-dir> --dry-run
 **Agent / Producer 必须在调用 `generate_images.py` 之前**向用户说明：
 
 1. 页数 × 单页耗时的大致等待时间；
-2. 脚本在终端运行，期间可继续改 `prompts/` 或先做 HTML（Mixed 时图片完成后再 `build_html`）；
+2. 脚本在终端运行，期间可继续改 `prompts/`（Mixed 时须图片完成后再渲染 HTML）；
 3. 冒烟可用 `--only P01`；不必一次生成全部页。
 
 **不建议**在未设预期时一次性对 20+ 页执行全量出图；页数多时应建议减少 `image_requirement.needed`、改用 `mixed` / `html-only`，或分批 `--only`。

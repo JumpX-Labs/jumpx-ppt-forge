@@ -109,9 +109,9 @@ CraftAgents 等环境排错见 `docs/plan-agent-backend-probe_v1.md`（维护者
 
 ## 怎么改
 
-- 改文字：编辑 `source/slide_plan.json`，再运行 `python3 scripts/build_html.py <project>`。
-- 改风格：回到 Gate 4 修改 `source/style_lock.json`，再重跑 HTML / Image。
-- 局部重生：运行 `python3 scripts/regenerate_slide.py <project> PNN`。
+- 改文字：编辑 `source/slide_plan.json`，再让 Web Renderer 按 08 契约重写 `index.html`。
+- 改风格：回到 Gate 4 修改 `source/style_lock.json`，再重新渲染。
+- 局部重生：标出要重生的页，由模型重写该页 `<section>`（`regenerate_slide.py` 可辅助标记）。
 
 ## 图片生成要多久
 
@@ -125,7 +125,7 @@ CraftAgents 等环境排错见 `docs/plan-agent-backend-probe_v1.md`（维护者
 
 1. 配置图片 backend（参考 `.env.example`）
 2. 运行 `python3 scripts/generate_images.py <project> --backend openai`（见上，注意总耗时）
-3. 再运行 `python3 scripts/build_html.py <project>`（Mixed 必须在图片就绪后）
+3. 图片就绪后再渲染 HTML（Mixed 必须在图片就绪后）
 
 ## 已知问题
 
@@ -152,7 +152,7 @@ CraftAgents 等环境排错见 `docs/plan-agent-backend-probe_v1.md`（维护者
 | Backend 探测 | `probe_image_backend.py` |
 | 7A-P 准备 Prompt | `export_images_manifest.py` |
 | 7A-G 出图 | `generate_images.py` |
-| 7B HTML 构建 | `build_html.py` |
+| 7B HTML 渲染 | 模型按 `08-web-renderer.md` 直接写 `index.html` |
 | HTML 校验 | `validate_html.py` |
 | 局部重生 | `regenerate_slide.py` |
 | Manifest 校验 | `validate_images_manifest.py` |
@@ -161,7 +161,7 @@ CraftAgents 等环境排错见 `docs/plan-agent-backend-probe_v1.md`（维护者
 
 ## 禁止项
 
-- `index.html` 须由 Step 7B 产出（主路径=模型按 08 文档硬契约直接写；回退=`build_html.py`）；不在 7B 之外的步骤提前写 HTML。
+- `index.html` 须由 Step 7B 产出（模型按 08 文档硬契约直接写）；不在 7B 之外的步骤提前写 HTML。
 - 禁止交付根目录混乱命名；必须按 `15-export-contract.md`。
 - 禁止用外链图片替代本地 `images/slide-NN.*`。
 - 禁止把 `needs-manual` / `pending` 的 manifest 状态说成成功。

@@ -74,12 +74,11 @@
 SKILL.md              # ★ Agent 入口：触发、管线、门禁、铁律
 references/           # 各角色指令文档（00–15）+ 可改层（叙事/写作/风格…）
 assets/
-  style-presets/      # 7 套风格语义档（JSON）
-  styles/             # 7 套风格 CSS
-  templates/layouts/  # 10 种版式片段（回退渲染用 / 版式灵感）
+  style-presets/      # 7 套风格语义档（JSON）= 设计 token，渲染据此发挥
+  styles/             # 7 套风格参考 CSS（视觉基准/参考）
   examples/           # 完整样例 deck
 schemas/              # slide_plan / style_lock / image_prompts 的 JSON Schema
-scripts/              # 校验 / 回退渲染 / 出图 / 导出（纯 stdlib，不含 LLM）
+scripts/              # 校验 / 出图 / 导出（纯 stdlib，不含 LLM）
 docs/                 # 给人看：架构 / 为什么有效（非 Agent 运行所需）
 ```
 

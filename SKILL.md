@@ -264,12 +264,12 @@ Agent 可读任意中间产物判断当前进度并决定下一步动作。
 
 **🚧 GATE**：Gate 4 通过 **且** Output Mode ∈ {`html-only`, `html-takeover`, `mixed`, `html-only-with-prompts`}。
 
-**做什么**（主路径 = 模型直接写 HTML；脚本模板为回退。细则见 [`references/08-web-renderer.md`](references/08-web-renderer.md)）：
+**做什么**（由你=模型按设计 token **直接编写 HTML**；这是唯一渲染路径，无模板回退。细则见 [`references/08-web-renderer.md`](references/08-web-renderer.md)）：
 
-- **主路径**：由你（模型）按 `slide_plan.json` + `style_lock.json`（设计 token）**直接编写 `index.html`**，每页根据内容与角色自由做版面设计，达到专业水准。必须遵守 08 文档的**硬契约**（`#deck` + 每页 `<section class="slide">` 100vw、`translateX` 翻页、自包含、不溢出）与 `style_lock.forbidden`。
-- **回退路径**：需纯脚本可复现 / 批量 / 无人值守时，用 `scripts/build_html.py`（模板片段拼装，质量受模板封顶）。
+- 按 `slide_plan.json` + `style_lock.json`（设计 token）**直接编写 `index.html`**，每页根据内容与角色自由做版面设计，达到专业水准。
+- 必须遵守 08 文档的**硬契约**（`#deck` + 每页 `<section class="slide">` 100vw、`translateX` 翻页、全内联自包含、不溢出）与 `style_lock.forbidden`。
 - Mixed 项目必须在配图生成完成（或本地已有 `images/slide-NN.*`）后再渲染。
-- 单页 HTML，16:9 画布，横向翻页（键盘 ←→、指示器、ESC 缩略图、移动端滑动）；CSS 内联，本地可直接打开。
+- 16:9 画布、横向翻页（键盘 ←→、指示器、ESC 缩略图、移动端滑动）；本地可直接打开。
 - 输出 `index.html`，跑 `scripts/validate_html.py` 校验。
 
 ### Step 7C：Intermediate Output / 中间态
