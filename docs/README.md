@@ -1,18 +1,8 @@
-# Docs（维护者与 QA）
+# docs · 给人看的文档
 
-> **Agent 日常不必读本目录。** 跑课、做 deck 请以 [`SKILL.md`](../SKILL.md) 与 [`references/`](../references/) 为准。
+> Agent 运行只需仓库根的 [`SKILL.md`](../SKILL.md)。这里是给"想理解 / 评估 / 扩展"这个 skill 的人。
 
-本目录存放实施记录、UAT 勾选表、backend 排错说明。文件名里的 `phase*` 是内部开发批次编号，与使用者无关。
+- [`ARCHITECTURE.md`](ARCHITECTURE.md) — **完整架构**：九步管线、角色与 references、两条数据契约（slide_plan / style_lock）、渲染的两条路径、输出形态、锁定层 vs 可改层。
+- [`WHY-IT-WORKS.md`](WHY-IT-WORKS.md) — **为什么有效**：七条设计原则，每条对应一个常见失败模式（版式、内容厚度、门禁、风格一致性、可复现…）。
 
-| 文档 | 说明 |
-|------|------|
-| [`skill-uat-checklist_v1.md`](skill-uat-checklist_v1.md) | v1.0 闭环验收勾选（脚本 + Agent + 固定样例） |
-| [`plan-agent-backend-probe_v1.md`](plan-agent-backend-probe_v1.md) | CraftAgents / `.env` 探测排错（已实施） |
-| [`plan-nanobanana-backend_v1.md`](plan-nanobanana-backend_v1.md) | Google Gemini Image（`--backend nanobanana`） |
-| [`phase2-implementation-brief_v1.md`](phase2-implementation-brief_v1.md) | 出图与 Prompt 导出实施记录 |
-| [`phase3-implementation-brief_v1.md`](phase3-implementation-brief_v1.md) | v1 收口总览 |
-| [`phase3c-3d-executor-brief_v1.md`](phase3c-3d-executor-brief_v1.md) | Mixed 样例 + Style Guard / Producer |
-| [`phase3e-3f-executor-brief_v1.md`](phase3e-3f-executor-brief_v1.md) | 7 preset + image-first 样例 + UAT |
-| [`teaching-clean-layout-gallery-prd_v1.md`](teaching-clean-layout-gallery-prd_v1.md) | Layout Gallery 10 页回归任务书 |
-
-上级 monorepo 另有产品 PRD / 实施总纲（`jumpx-ppt-slides-skill/` 根），不在本 Git 仓库内。
+产品介绍与上手见仓库根 [`README.md`](../README.md)。
