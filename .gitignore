@@ -1,40 +1,29 @@
-# macOS
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# 编辑器
-.vscode/
-.cursor/*
-!.cursor/rules/
-*.swp
-*.swo
-
-# Node（如有脚本依赖）
-node_modules/
-dist/
-
-# Python
-__pycache__/
-*.pyc
-.venv/
-venv/
-
-# 环境变量（不入库）
+# Secrets
 .env
 .env.local
 *.pem
 
-# 构建产物
-/output/
-/generated/
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+.cursor/*
+!.cursor/rules/
 
-# 压缩包（不入库）
+# Python / Node
+__pycache__/
+*.py[cod]
+node_modules/
+dist/
+
+# Generated slide projects (user output)
+slide-deck/
+projects/
+
+# Local API-generated images (regression uses manifest; do not commit)
+assets/examples/teaching-clean-demo/images/
+
+# Archives
 *.zip
 *.tar.gz
-
-# 上游参考仓库（本地 clone，不入库；见 references/README.md）
-/references/baoyu-skills/
-/references/guizang-ppt-skill/
-/references/ppt-master/
-

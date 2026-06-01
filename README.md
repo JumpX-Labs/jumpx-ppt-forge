@@ -1,125 +1,92 @@
-# AI Slide Producer
+# AI Slide Producer（Skill 包）
 
-> 把粗糙输入变成可见 Slides 结果的 AI 生产系统——Image 与 HTML 双输出，每一步都有人工门禁，每页 Prompt 都是可复用资产。
+> 把粗糙输入变成**可见 Slides 结果**的 Agent Skill：网页幻灯片、配图或二者兼有；关键步骤需你确认；每页图片 Prompt 可单独保存复用。
 
-| 文档 | 用途 |
+本目录是 **Git 仓库根**（`skills/`）。在 Cursor / CraftAgents 中安装或引用 `ai-slide-producer/` 即可使用。
+
+---
+
+## 你能做什么（v1.0）
+
+| 能力 | 说明 |
 |------|------|
-| [`ai_slide_producer_prd_v1.md`](ai_slide_producer_prd_v1.md) | 产品需求定义（PRD v1.0） |
-| [`ai_slide_producer_implementation_guide_v1.md`](ai_slide_producer_implementation_guide_v1.md) | 参考实施指导（从 PRD 倒推「要建什么、从哪抄什么」） |
-| [`skills/ai-slide-producer/SKILL.md`](skills/ai-slide-producer/SKILL.md) | 主 Skill 入口（触发、状态机、Gate、管线铁律） |
-| [`references/`](references/) | 上游样本（只读，不修改） |
+| 九步管线 | 需求澄清 → 大纲 → 逐页计划 → 审核 → 定风格 → 出图/出网页 → 质检 → 交付 |
+| 输出形态 | `html-only`（推荐上课）、`image-first`、`mixed`（网页 + 部分配图） |
+| 7 套视觉风格 | 默认 `teaching-clean`；对外展示常用 `editorial-magazine` |
+| 脚本拼装 HTML | Agent **不得**手写 `index.html`，须运行 `scripts/build_html.py` |
+| 真实出图 | 配置 `.env` 后 `generate_images.py`（OpenAI / Gemini 等）；无 Key 时自动改网页并保留 Prompt |
+
+触发词与完整流程见 [`SKILL.md`](SKILL.md)。
 
 ---
 
-## 当前状态
+## 快速入口
 
-**Phase 1：HTML 闭环 — 已完成第一版 ✅**
+| 你想… | 打开 |
+|--------|------|
+| **在 Agent 里怎么用** | [`SKILL.md`](SKILL.md) |
+| 需求澄清（Step 1） | [`references/01-intake-brief.md`](references/01-intake-brief.md) |
+| 风格怎么选 | [`references/12-style-presets.md`](references/12-style-presets.md) |
+| 生成网页（Step 7B） | [`references/08-web-renderer.md`](references/08-web-renderer.md) |
+| 导出图片 Prompt / 出图（Step 7A） | [`references/09-image-renderer.md`](references/09-image-renderer.md) |
+| 交付目录长什么样 | [`references/15-export-contract.md`](references/15-export-contract.md) |
+| 跑回归样例 | [`assets/examples/README.md`](assets/examples/README.md) |
+| 配置图片 API | [`.env.example`](.env.example)（复制为 `.env`，勿提交密钥） |
 
-已完成：
-
-- `skills/ai-slide-producer/SKILL.md` — 主 Skill：触发词、状态机、6 Gate、9 步管线、Output Mode 探测时机
-- `skills/ai-slide-producer/references/`
-  - `00-product-principles.md` — PRD §6 八条原则的可执行版
-  - `01-intake-brief.md` — Step 1 / Gate 1 / 8 问清单 / Round 1 确认 UX
-  - `02-context-pack.md` — Step 2 / 7 套 Preset 一对一映射表 / Output Mode 探测细则
-  - `15-export-contract.md` — Step 9 / 三种交付目录树 / 文件命名 / `build_html.py` 拼装策略
-- `skills/ai-slide-producer/schemas/`
-  - `slide_plan.schema.json` — 逐页计划 JSON Schema
-  - `style_lock.schema.json` — 风格锁 JSON Schema（PRD §12 + ppt-master spec_lock 合并）
-  - `image_prompts.schema.json` — 单页 Prompt frontmatter + manifest 双 schema
-- `skills/ai-slide-producer/.env.example` — 图片 backend 环境变量模板（openai / gemini core tier + 扩展）
-- Phase 0.5 契约修补：`html-takeover` Prompt Staging、Output Mode 落盘时机、Manifest backend enum、HTML escaping、slide plan 语义校验约束
-- Phase 1 HTML 闭环：
-  - `references/06-reviewer.md`、`07-designer.md`、`08-web-renderer.md`、`14-quality-checklist.md`
-  - `assets/templates/web-slide-template.html`、`web-slide-template-minimal.html`
-  - `assets/templates/layouts/*.html.snippet`（10 种 PRD 页面类型）
-  - `assets/styles/teaching-clean.css`
-  - `assets/style-presets/teaching-clean.json`
-  - `scripts/build_html.py`、`validate_slide_plan.py`、`validate_context_lock.py`、`validate_html.py`
-  - `assets/examples/teaching-clean-demo/` 回归样例，已生成 `index.html`
-
-本轮在写作中**直接落字解决**了 4 处对齐项：
-
-1. **Reviewer 返工策略**（SKILL.md §Step 5）：自动重写最多 1 轮，超过回退到 Gate 2 由用户重审。
-2. **7 套 Preset 一对一映射表**（`02-context-pack.md` §Preset 一对一映射表）：每套 preset 唯一绑定到上游样本源文件。
-3. **Output Mode 探测时机**（SKILL.md / `02-context-pack.md`）：固定在 Step 1 Intake 收尾，结果先写入 `project_brief.md`，Step 2 再复制到 `context_pack.md`。
-4. **`build_html.py` 拼装策略**（`15-export-contract.md` §build_html.py 拼装策略）：模板 + 占位符替换 + layout snippet 拼接，不引入模板引擎。
+**维护者与 QA**：验收勾选、实施记录见 [`docs/`](docs/)（Agent 不必读）。
 
 ---
 
-## 下一阶段（Phase 2：Image 闭环）
+## 目录结构
 
-目标：在 Phase 1 HTML 可见结果基础上，补齐 Image Prompt 资产化、图片 backend 包装、中间态续生和局部重生。
-
-预计新增：
-
-- `references/09-image-renderer.md`
-- `references/13-regeneration-workflow.md`
-- `assets/templates/image-prompt-template.md`
-- `scripts/generate_images.py`
-- `scripts/export_images_manifest.py`
-- `scripts/regenerate_slide.py`
-
----
-
-## 后续阶段速览
-
-| Phase | 主目标 | 主要新增 |
-|-------|--------|----------|
-| Phase 2 | Image 闭环 + 中间态 | `09-image-renderer.md`、`13-regeneration-workflow.md`、`generate_images.py`、`export_images_manifest.py`、`regenerate_slide.py`、`assets/templates/image-prompt-template.md` |
-| Phase 3 | 完整 v1 | 剩余 references（03/04/05/10/11/12）、7 套 preset 的完整 CSS+JSON、Style Guard、可选 PPTX 导出 |
-
----
-
-## 仓库结构
-
-```
-jumpx-ppt-slides-skill/
-├── README.md                                       # 本文件
-├── ai_slide_producer_prd_v1.md                     # PRD
-├── ai_slide_producer_implementation_guide_v1.md    # 实施指导
-├── skills/
-│   └── ai-slide-producer/                          # Skill 本体
-│       ├── SKILL.md
-│       ├── .env.example
-│       ├── references/
-│       │   ├── 00-product-principles.md
-│       │   ├── 01-intake-brief.md
-│       │   ├── 02-context-pack.md
-│       │   └── 15-export-contract.md
-│       └── schemas/
-│           ├── slide_plan.schema.json
-│           ├── style_lock.schema.json
-│           └── image_prompts.schema.json
-└── references/                                     # 上游样本（只读）
-    ├── baoyu-skills/
-    ├── guizang-ppt-skill/
-    └── ppt-master/
+```text
+ai-slide-producer/
+├── SKILL.md                  # Agent 主入口
+├── references/               # 各 Step 角色手册（00–15）
+├── schemas/                  # JSON Schema
+├── assets/templates|styles|style-presets|examples/
+├── scripts/                  # build_html、出图、校验、重生
+└── docs/                     # UAT 与实施记录（维护者）
 ```
 
 ---
 
-## 快速上手（Phase 0 阶段的可做事项）
+## 本机冒烟（HTML）
 
-当前可做：
+在 `skills/ai-slide-producer/` 下：
 
-- **审阅契约**：通读 `skills/ai-slide-producer/SKILL.md` + 4 篇 references + 3 份 schema，验证产品骨架是否符合预期。
-- **用 schema 验证手写产物**：手工写一份 `slide_plan.json` 草稿，用 JSON Schema 工具校验 schema 是否覆盖所需字段。
-- **review 4 处对齐项落地是否合理**：见 `00-product-principles.md`、`02-context-pack.md`、`15-export-contract.md`、SKILL.md。
+```bash
+python3 scripts/build_html.py assets/examples/teaching-clean-demo
+python3 scripts/validate_html.py assets/examples/teaching-clean-demo/index.html
+```
 
-尚不能做（需 Phase 1+）：
+浏览器打开对应 `index.html`（← → 翻页，ESC 缩略图）。更多样例命令见 [`assets/examples/README.md`](assets/examples/README.md)。
 
-- 实际生成 HTML / 图片（无 build_html、无模板）
-- 调用图片 backend（无 generate_images 脚本）
+出图（需 `.env`）：
+
+```bash
+python3 scripts/probe_image_backend.py assets/examples/teaching-clean-demo
+python3 scripts/generate_images.py assets/examples/teaching-clean-demo --backend openai --only P01
+```
 
 ---
 
-## License
+## 许可
 
-- 本仓库代码与文档：见根目录 LICENSE（待补，建议 MIT）
-- 上游样本许可：
-  - `references/ppt-master/` — MIT
-  - `references/guizang-ppt-skill/` — 见其 LICENSE
-  - `references/baoyu-skills/` — 见其 LICENSE
+内置模板与风格资产含开源版权头；拷贝到 `assets/` / `scripts/` 时须保留。**用户交付的 deck 里不写 provenance 说明。**
 
-拷贝上游模板/代码到 `skills/ai-slide-producer/assets/` 或 `scripts/` 时必须保留原版权头。
+---
+
+<details>
+<summary>维护者：版本与开发批次（点击展开）</summary>
+
+| 批次 | 状态 | 要点 |
+|------|------|------|
+| 契约 + HTML | 已完成 | `SKILL.md`、schemas、`build_html.py`、10 layout |
+| 出图 + 重生 | 已完成 | `export_images_manifest.py`、`generate_images.py`、`regenerate_slide.py` |
+| 叙事 + 视觉 | 已完成 | references 03–05、7 preset、Style Guard / Producer |
+| v1.0 收口 | 已完成 | UAT 表、固定样例、nanobanana backend |
+
+Git 历史见 `skills/` 仓库 log；上级 monorepo 产品 PRD 在 `../../`（只读）。
+
+</details>
