@@ -1,0 +1,34 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# 编辑器
+.vscode/
+.cursor/*
+!.cursor/rules/
+*.swp
+*.swo
+
+# Node（如有脚本依赖）
+node_modules/
+dist/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# 环境变量（不入库）
+.env
+.env.local
+*.pem
+
+# 构建产物
+/output/
+/generated/
+
+# 压缩包（不入库）
+*.zip
+*.tar.gz
