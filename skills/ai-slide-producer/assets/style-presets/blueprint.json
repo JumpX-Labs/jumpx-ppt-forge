@@ -1,0 +1,27 @@
+{
+  "style_name": "blueprint",
+  "display_name": "Blueprint",
+  "texture": "technical paper grid, precise schematic lines",
+  "mood": "analytical, exact, engineered",
+  "typography": "clean technical sans headings with measured serif-like explanatory rhythm",
+  "density": "medium-high",
+  "color_palette": {
+    "primary_color": "#334155",
+    "accent_color": "#2563EB",
+    "background_color": "#FAF8F5",
+    "text_primary_color": "#334155",
+    "text_secondary_color": "#64748B",
+    "border_color": "#CBD5E1"
+  },
+  "font_heading": "\"Helvetica Neue\", Arial, \"Noto Sans SC\", sans-serif",
+  "font_body": "Georgia, \"Times New Roman\", \"Noto Serif SC\", serif",
+  "layout_bias": "grid",
+  "image_style_description": "precise technical blueprint, off-white engineering paper, thin schematic linework, orthographic diagrams, measurement marks, restrained blue accents",
+  "negative_constraints": [
+    "no hand-drawn doodles",
+    "no photographic backgrounds",
+    "no decorative flourishes",
+    "no curved connection lines",
+    "no crowded labels"
+  ]
+}

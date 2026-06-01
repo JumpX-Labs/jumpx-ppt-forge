@@ -1,0 +1,27 @@
+{
+  "style_name": "swiss-system",
+  "display_name": "Swiss System",
+  "texture": "flat ink on calibrated off-white paper with strict grid",
+  "mood": "rational, precise, confident, modernist",
+  "typography": "Helvetica-like sans-serif hierarchy, tight grid alignment, strong numerals",
+  "density": "medium-high",
+  "color_palette": {
+    "primary_color": "#0A0A0A",
+    "accent_color": "#002FA7",
+    "background_color": "#FAFAF8",
+    "text_primary_color": "#0A0A0A",
+    "text_secondary_color": "#737373",
+    "border_color": "#D4D4D2"
+  },
+  "font_heading": "\"Helvetica Neue\", Arial, \"Noto Sans SC\", sans-serif",
+  "font_body": "\"Helvetica Neue\", Arial, \"Noto Sans SC\", sans-serif",
+  "layout_bias": "grid",
+  "image_style_description": "Swiss international poster grid, off-white paper, black typography, one Klein blue accent, rigid alignment, geometric blocks, precise numbered information system",
+  "negative_constraints": [
+    "no gradients",
+    "no rounded decorative cards",
+    "no multiple accent colors",
+    "no drop shadows",
+    "no ornamental illustrations"
+  ]
+}

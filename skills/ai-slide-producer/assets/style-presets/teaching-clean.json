@@ -1,0 +1,27 @@
+{
+  "style_name": "teaching-clean",
+  "display_name": "Teaching Clean",
+  "texture": "flat, airy, lightly gridded",
+  "mood": "clear, calm, instructional",
+  "typography": "strong sans-serif hierarchy with generous line height",
+  "density": "medium-low",
+  "color_palette": {
+    "primary_color": "#111827",
+    "accent_color": "#2563EB",
+    "background_color": "#F8FAFC",
+    "text_primary_color": "#111827",
+    "text_secondary_color": "#64748B",
+    "border_color": "#D7DEE8"
+  },
+  "font_heading": "Inter, \"Noto Sans SC\", sans-serif",
+  "font_body": "Inter, \"Noto Sans SC\", sans-serif",
+  "layout_bias": "grid",
+  "image_style_description": "clean educational diagram, simple geometric illustration, soft editorial screenshots",
+  "negative_constraints": [
+    "no crowded text blocks",
+    "no decorative gradients as the main visual",
+    "no faux 3D business clipart",
+    "no unreadable small labels"
+  ]
+}
+

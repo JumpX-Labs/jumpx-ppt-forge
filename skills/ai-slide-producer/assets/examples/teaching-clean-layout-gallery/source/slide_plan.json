@@ -1,0 +1,252 @@
+{
+  "deck_meta": {
+    "deck_title": "Teaching Clean Layout Gallery",
+    "audience": "Internal QA / layout regression",
+    "total_pages": 10,
+    "style_name": "teaching-clean",
+    "narrative_arc": "Layout-Gallery-Only",
+    "output_mode": "html-only",
+    "canvas_ratio": "16:9",
+    "language": "zh-CN",
+    "created_at": "2026-05-21T12:00:00+08:00",
+    "source_outline": "source/outline.md"
+  },
+  "pages": [
+    {
+      "page_id": "P01",
+      "page_title": "Layout Gallery · Cover",
+      "page_goal": "Verify cover layout renders",
+      "page_role_in_story": "cover",
+      "key_message": "Ten layout types in one deck for regression.",
+      "on_slide_text": {
+        "headline": "Teaching Clean Layout Gallery",
+        "sub_headline": "Regression sample · cover",
+        "body": [],
+        "caption": "P01 / cover"
+      },
+      "speaker_notes": "Gallery page 1: cover.",
+      "visual_direction": "clean hero opening",
+      "layout_type": "cover",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "anchor"
+    },
+    {
+      "page_id": "P02",
+      "page_title": "Section Divider",
+      "page_goal": "Verify section-divider layout",
+      "page_role_in_story": "section-divider",
+      "key_message": "This page tests the section divider template.",
+      "on_slide_text": {
+        "headline": "Section Divider",
+        "body": [],
+        "caption": "P02"
+      },
+      "speaker_notes": "Gallery page 2: section-divider.",
+      "visual_direction": "chapter break",
+      "layout_type": "section-divider",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "breathing"
+    },
+    {
+      "page_id": "P03",
+      "page_title": "Big Idea",
+      "page_goal": "Verify big-idea layout",
+      "page_role_in_story": "core",
+      "key_message": "One sentence should dominate the canvas.",
+      "on_slide_text": {
+        "headline": "Big Idea",
+        "sub_headline": "Supporting line under the statement",
+        "body": [],
+        "caption": "P03"
+      },
+      "speaker_notes": "Gallery page 3: big-idea.",
+      "visual_direction": "large statement typography",
+      "layout_type": "big-idea",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "anchor"
+    },
+    {
+      "page_id": "P04",
+      "page_title": "Two Column",
+      "page_goal": "Verify two-column + body_items",
+      "page_role_in_story": "context",
+      "key_message": "Left narrative, right bullet list.",
+      "on_slide_text": {
+        "headline": "Two Column",
+        "body": [
+          "First bullet for body_items",
+          "Second bullet with short copy",
+          "Third bullet to test list spacing"
+        ],
+        "caption": "P04 / two-column"
+      },
+      "speaker_notes": "Gallery page 4: two-column.",
+      "visual_direction": "split text columns",
+      "layout_type": "two-column",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "dense"
+    },
+    {
+      "page_id": "P05",
+      "page_title": "Quote",
+      "page_goal": "Verify quote layout",
+      "page_role_in_story": "quote",
+      "key_message": "Regression decks still need a strong pull quote.",
+      "on_slide_text": {
+        "headline": "Quote",
+        "body": [],
+        "caption": "Attribution · Layout Gallery"
+      },
+      "speaker_notes": "Gallery page 5: quote.",
+      "visual_direction": "centered quote block",
+      "layout_type": "quote",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "breathing"
+    },
+    {
+      "page_id": "P06",
+      "page_title": "Framework",
+      "page_goal": "Verify framework tiles",
+      "page_role_in_story": "framework",
+      "key_message": "Three tiles driven by colon-separated body lines.",
+      "on_slide_text": {
+        "headline": "Framework",
+        "body": [
+          "Intake: clarify goals and output mode",
+          "Plan: outline and slide plan",
+          "Render: HTML or image paths",
+          "QA: style guard and producer checks"
+        ],
+        "caption": "P06 / framework"
+      },
+      "speaker_notes": "Gallery page 6: framework.",
+      "visual_direction": "three educational tiles",
+      "layout_type": "framework",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "dense"
+    },
+    {
+      "page_id": "P07",
+      "page_title": "Timeline",
+      "page_goal": "Verify timeline steps",
+      "page_role_in_story": "core",
+      "key_message": "Steps list uses Title:Description lines.",
+      "on_slide_text": {
+        "headline": "Timeline",
+        "body": [
+          "Copy source: duplicate demo folder",
+          "Paste plan: use appendix A JSON",
+          "Validate: run scripts and open HTML",
+          "Review: confirm every step remains visible"
+        ],
+        "caption": "P07 / timeline"
+      },
+      "speaker_notes": "Gallery page 7: timeline.",
+      "visual_direction": "vertical or horizontal steps",
+      "layout_type": "timeline",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "dense"
+    },
+    {
+      "page_id": "P08",
+      "page_title": "Comparison",
+      "page_goal": "Verify comparison_panels",
+      "page_role_in_story": "comparison",
+      "key_message": "Before and after panels from two body lines.",
+      "on_slide_text": {
+        "headline": "Comparison",
+        "body": [
+          "Before: only four layouts tested in demo",
+          "After: all ten layouts in one gallery deck"
+        ],
+        "caption": "P08 / comparison"
+      },
+      "speaker_notes": "Gallery page 8: comparison.",
+      "visual_direction": "side by side panels",
+      "layout_type": "comparison",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "dense"
+    },
+    {
+      "page_id": "P09",
+      "page_title": "Image + Text",
+      "page_goal": "Verify image-text without image file",
+      "page_role_in_story": "evidence",
+      "key_message": "When no PNG exists, show text placeholder not broken img.",
+      "on_slide_text": {
+        "headline": "Image + Text",
+        "body": [
+          "No images/slide-09.png in this sample"
+        ],
+        "caption": "P09 / image-text placeholder"
+      },
+      "speaker_notes": "Gallery page 9: image-text, no raster file.",
+      "visual_direction": "diagram placeholder on the left",
+      "layout_type": "image-text",
+      "image_requirement": {
+        "needed": false,
+        "intent": "diagram",
+        "text_in_image_risk": "none",
+        "generated_image_path": ""
+      },
+      "page_rhythm": "dense"
+    },
+    {
+      "page_id": "P10",
+      "page_title": "Closing",
+      "page_goal": "Verify closing tiles",
+      "page_role_in_story": "takeaway",
+      "key_message": "Gallery complete when all checks pass.",
+      "on_slide_text": {
+        "headline": "Closing",
+        "body": [
+          "Run: validate_slide_plan + build_html + validate_html",
+          "Open: index.html in browser",
+          "Commit: gallery folder + examples README"
+        ],
+        "caption": "P10 / closing"
+      },
+      "speaker_notes": "Gallery page 10: closing.",
+      "visual_direction": "three next-step tiles",
+      "layout_type": "closing",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "anchor"
+    }
+  ]
+}

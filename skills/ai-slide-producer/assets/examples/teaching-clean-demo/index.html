@@ -1,0 +1,626 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Slide Producer 工作流</title>
+  <style>
+:root {
+  --asp-bg: #F8FAFC;
+  --asp-ink: #111827;
+  --asp-accent: #2563EB;
+  --asp-font-heading: Inter, "Noto Sans SC", sans-serif;
+  --asp-font-body: Inter, "Noto Sans SC", sans-serif;
+  --asp-muted: #64748B;
+  --asp-line: #D7DEE8;
+}
+
+:root {
+  --asp-bg: #F8FAFC;
+  --asp-surface: #FFFFFF;
+  --asp-ink: #111827;
+  --asp-muted: #64748B;
+  --asp-accent: #2563EB;
+  --asp-accent-soft: #DBEAFE;
+  --asp-line: #D7DEE8;
+  --asp-font-heading: Inter, "Noto Sans SC", sans-serif;
+  --asp-font-body: Inter, "Noto Sans SC", sans-serif;
+  --asp-radius: 8px;
+  --asp-shadow: 0 18px 50px rgba(15, 23, 42, 0.10);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--asp-bg);
+  color: var(--asp-ink);
+  font-family: var(--asp-font-body);
+  letter-spacing: 0;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.deck {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  width: 10000vw;
+  height: 100vh;
+  transition: transform 420ms ease;
+}
+
+.slide {
+  position: relative;
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100vh;
+  padding: 54px 72px 62px;
+  overflow: hidden;
+  background: var(--asp-bg);
+}
+
+.slide-inner {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  width: min(1500px, 100%);
+  height: 100%;
+  margin: 0 auto;
+  gap: 28px;
+}
+
+.slide-kicker,
+.slide-meta,
+.eyebrow {
+  color: var(--asp-accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.slide-title {
+  margin: 0;
+  color: var(--asp-ink);
+  font-family: var(--asp-font-heading);
+  font-size: 56px;
+  line-height: 1.08;
+  font-weight: 760;
+}
+
+.slide-subtitle {
+  max-width: 880px;
+  margin: 16px 0 0;
+  color: var(--asp-muted);
+  font-size: 24px;
+  line-height: 1.45;
+}
+
+.slide-body {
+  color: var(--asp-ink);
+  font-size: 23px;
+  line-height: 1.55;
+}
+
+.slide-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--asp-muted);
+  font-size: 12px;
+}
+
+.content-grid {
+  display: grid;
+  gap: 28px;
+  align-items: center;
+}
+
+.two-col {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.three-col {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.panel,
+.tile,
+.image-placeholder,
+.quote-block {
+  border: 1px solid var(--asp-line);
+  border-radius: var(--asp-radius);
+  background: var(--asp-surface);
+  box-shadow: var(--asp-shadow);
+}
+
+.panel,
+.tile {
+  padding: 28px;
+}
+
+.tile h3,
+.panel h3 {
+  margin: 0 0 12px;
+  font-size: 25px;
+  line-height: 1.25;
+}
+
+.tile p,
+.panel p {
+  margin: 0;
+  color: var(--asp-muted);
+  font-size: 19px;
+  line-height: 1.55;
+}
+
+.body-list {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.body-list li {
+  position: relative;
+  padding-left: 26px;
+}
+
+.body-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--asp-accent);
+}
+
+.hero-layout {
+  align-content: center;
+  justify-items: start;
+}
+
+.hero-title {
+  max-width: 1050px;
+  margin: 0;
+  font-family: var(--asp-font-heading);
+  font-size: 76px;
+  line-height: 1.02;
+  font-weight: 800;
+}
+
+.hero-message {
+  max-width: 850px;
+  margin: 28px 0 0;
+  color: var(--asp-muted);
+  font-size: 28px;
+  line-height: 1.42;
+}
+
+.accent-bar {
+  width: 86px;
+  height: 7px;
+  margin-bottom: 26px;
+  border-radius: 999px;
+  background: var(--asp-accent);
+}
+
+.section-number {
+  color: var(--asp-accent-soft);
+  font-size: 190px;
+  line-height: 0.9;
+  font-weight: 800;
+}
+
+.big-idea {
+  display: grid;
+  align-content: center;
+  min-height: 65vh;
+}
+
+.big-idea .statement {
+  max-width: 1100px;
+  margin: 0;
+  font-size: 64px;
+  line-height: 1.12;
+  font-weight: 780;
+}
+
+.quote-block {
+  padding: 48px;
+}
+
+.quote-mark {
+  color: var(--asp-accent);
+  font-size: 78px;
+  line-height: 0.7;
+}
+
+.quote-text {
+  margin: 0;
+  font-size: 42px;
+  line-height: 1.28;
+  font-weight: 700;
+}
+
+.quote-caption {
+  margin-top: 24px;
+  color: var(--asp-muted);
+  font-size: 19px;
+}
+
+.step-list {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 18px;
+  align-items: start;
+  padding: 20px 0;
+  border-top: 1px solid var(--asp-line);
+}
+
+.step-num {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--asp-accent-soft);
+  color: var(--asp-accent);
+  font-weight: 800;
+}
+
+.step-title {
+  margin: 0 0 6px;
+  font-size: 24px;
+}
+
+.step-copy {
+  margin: 0;
+  color: var(--asp-muted);
+  font-size: 18px;
+  line-height: 1.48;
+}
+
+.comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.comparison .panel:first-child {
+  background: #F1F5F9;
+  box-shadow: none;
+}
+
+.image-placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 360px;
+  padding: 28px;
+  color: var(--asp-muted);
+  text-align: center;
+  background:
+    linear-gradient(90deg, rgba(37, 99, 235, 0.08) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(37, 99, 235, 0.08) 1px, transparent 1px),
+    var(--asp-surface);
+  background-size: 34px 34px;
+}
+
+.image-placeholder img {
+  width: 100%;
+  height: 100%;
+  max-height: 430px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.closing-title {
+  max-width: 980px;
+  margin: 0;
+  font-size: 68px;
+  line-height: 1.08;
+}
+
+.closing-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 36px;
+}
+
+.slide-controls {
+  position: fixed;
+  right: 24px;
+  bottom: 20px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border: 1px solid rgba(100, 116, 139, 0.22);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(10px);
+}
+
+.nav-button {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--asp-ink);
+  color: white;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.progress {
+  min-width: 48px;
+  color: var(--asp-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.slide-index {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  padding: 42px;
+  background: rgba(15, 23, 42, 0.84);
+  backdrop-filter: blur(14px);
+}
+
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px;
+}
+
+.index-card {
+  min-height: 120px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--asp-radius);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  text-align: left;
+  cursor: pointer;
+}
+
+.index-card strong {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: #BFDBFE;
+}
+
+.index-card span {
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.notes {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .slide {
+    padding: 32px 28px 58px;
+  }
+
+  .slide-title,
+  .hero-title,
+  .closing-title {
+    font-size: 42px;
+  }
+
+  .big-idea .statement {
+    font-size: 38px;
+  }
+
+  .two-col,
+  .three-col,
+  .comparison,
+  .closing-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .slide-controls {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+}
+
+
+  </style>
+</head>
+<body>
+  <main id="deck" class="deck" aria-label="AI Slide Producer 工作流">
+  <section class="slide" data-page-id="P01" data-layout="cover" data-role="cover">
+<div class="slide-inner hero-layout">
+  <header>
+    <div class="accent-bar"></div>
+    <div class="slide-kicker">cover</div>
+  </header>
+  <section>
+    <h1 class="hero-title">从粗糙想法到可见 Slides</h1>
+    <p class="hero-message">AI Slide Producer 把一次性请求变成可复用的生产工作流。</p>
+  </section>
+  <footer class="slide-footer">
+    <span>AI Slide Producer 工作流</span>
+    <span>1 / 4</span>
+  </footer>
+</div>
+<aside class="notes" hidden>说明本 demo 展示的是 HTML 闭环，不包含图片 backend。</aside>
+
+
+  </section>
+  <section class="slide" data-page-id="P02" data-layout="two-column" data-role="context">
+<div class="slide-inner">
+  <header>
+    <div class="slide-kicker">context</div>
+    <h2 class="slide-title">为什么一次性生成不稳定</h2>
+  </header>
+  <section class="content-grid two-col">
+    <div class="panel">
+      <h3>漂移来自缺少生产纪律</h3>
+      <p>Brief 没确认：目标会漂</p>
+    </div>
+    <div class="slide-body">
+      <ul class="body-list">
+        <li>Style 没锁定：颜色和密度会漂</li>
+        <li>Prompt 不落盘：结果不可复用</li>
+      </ul>
+    </div>
+  </section>
+  <footer class="slide-footer">
+    <span>核心问题</span>
+    <span>2 / 4</span>
+  </footer>
+</div>
+<aside class="notes" hidden>强调这是生产系统问题，不只是 prompt 写得好不好。</aside>
+
+  </section>
+  <section class="slide" data-page-id="P03" data-layout="framework" data-role="framework">
+<div class="slide-inner">
+  <header>
+    <div class="slide-kicker">framework</div>
+    <h2 class="slide-title">九步工作流</h2>
+    <p class="slide-subtitle">流程为骨架，角色为能力，Gate 决定何时放大。</p>
+  </header>
+  <section class="content-grid three-col">
+        <article class="tile"><h3>Intake</h3><p>澄清目标、受众、输出形态</p></article>
+    <article class="tile"><h3>Plan</h3><p>大纲、页面计划、内容审核</p></article>
+    <article class="tile"><h3>Render</h3><p>Style Lock 后生成 HTML 或 Image</p></article>
+  </section>
+  <footer class="slide-footer">
+    <span>三段式理解九步流程</span>
+    <span>3 / 4</span>
+  </footer>
+</div>
+<aside class="notes" hidden>把九步压缩为三段，便于首次理解。</aside>
+
+
+  </section>
+  <section class="slide" data-page-id="P04" data-layout="closing" data-role="takeaway">
+<div class="slide-inner hero-layout">
+  <header>
+    <div class="accent-bar"></div>
+    <div class="slide-kicker">takeaway</div>
+  </header>
+  <section>
+    <h2 class="closing-title">下一步：先跑通 HTML 闭环</h2>
+    <p class="hero-message">先让用户看见结果，再逐步扩展 Image 和 Mixed 能力。</p>
+    <div class="closing-actions">
+          <article class="tile"><h3>补齐 reviewer / designer / web renderer</h3><p></p></article>
+    <article class="tile"><h3>生成 index.html 并通过 QA</h3><p></p></article>
+    <article class="tile"><h3>再接入图片 Prompt 与 backend</h3><p></p></article>
+    </div>
+  </section>
+  <footer class="slide-footer">
+    <span>AI Slide Producer 工作流</span>
+    <span>4 / 4</span>
+  </footer>
+</div>
+<aside class="notes" hidden>收束到下一阶段的可执行目标。</aside>
+
+
+  </section>
+  </main>
+  <nav class="slide-controls" aria-label="Slide controls">
+    <button type="button" class="nav-button" data-action="prev" aria-label="Previous slide">‹</button>
+    <div class="progress" aria-live="polite"><span id="current-slide">1</span><span>/</span><span id="total-slides">4</span></div>
+    <button type="button" class="nav-button" data-action="next" aria-label="Next slide">›</button>
+  </nav>
+  <div id="index" class="slide-index" hidden>
+    <div class="index-grid" role="list">
+      <button class="index-card" type="button" role="listitem" data-index-target="0"><strong>01</strong><span>从粗糙想法到可见 Slides</span></button>
+      <button class="index-card" type="button" role="listitem" data-index-target="1"><strong>02</strong><span>为什么一次性生成不稳定</span></button>
+      <button class="index-card" type="button" role="listitem" data-index-target="2"><strong>03</strong><span>九步工作流</span></button>
+      <button class="index-card" type="button" role="listitem" data-index-target="3"><strong>04</strong><span>下一步：先跑通 HTML 闭环</span></button>
+    </div>
+  </div>
+  <script>
+  (() => {
+    const deck = document.getElementById("deck");
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const current = document.getElementById("current-slide");
+    const index = document.getElementById("index");
+    let active = 0;
+
+    function clamp(value) {
+      return Math.max(0, Math.min(slides.length - 1, value));
+    }
+
+    function go(next) {
+      active = clamp(next);
+      deck.style.transform = `translateX(${-active * 100}vw)`;
+      current.textContent = String(active + 1);
+      slides.forEach((slide, i) => {
+        slide.setAttribute("aria-hidden", i === active ? "false" : "true");
+      });
+    }
+
+    function toggleIndex(force) {
+      const show = typeof force === "boolean" ? force : index.hidden;
+      index.hidden = !show;
+    }
+
+    document.querySelector('[data-action="prev"]').addEventListener("click", () => go(active - 1));
+    document.querySelector('[data-action="next"]').addEventListener("click", () => go(active + 1));
+    document.querySelectorAll("[data-index-target]").forEach((button) => {
+      button.addEventListener("click", () => {
+        toggleIndex(false);
+        go(Number(button.dataset.indexTarget));
+      });
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight" || event.key === "PageDown" || event.key === " ") go(active + 1);
+      if (event.key === "ArrowLeft" || event.key === "PageUp") go(active - 1);
+      if (event.key === "Escape") toggleIndex();
+    });
+
+    let touchStart = null;
+    window.addEventListener("touchstart", (event) => {
+      touchStart = event.changedTouches[0].clientX;
+    }, { passive: true });
+    window.addEventListener("touchend", (event) => {
+      if (touchStart === null) return;
+      const delta = event.changedTouches[0].clientX - touchStart;
+      if (Math.abs(delta) > 48) go(active + (delta < 0 ? 1 : -1));
+      touchStart = null;
+    }, { passive: true });
+
+    go(0);
+  })();
+  </script>
+</body>
+</html>
+

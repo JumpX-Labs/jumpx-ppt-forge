@@ -1,0 +1,114 @@
+{
+  "deck_meta": {
+    "deck_title": "Swiss System Demo",
+    "audience": "Product reviewers / training-camp operators",
+    "total_pages": 4,
+    "style_name": "swiss-system",
+    "narrative_arc": "Swiss-Style-Smoke",
+    "output_mode": "html-only",
+    "canvas_ratio": "16:9",
+    "language": "en-US",
+    "created_at": "2026-05-21T15:00:00+02:00",
+    "source_outline": "source/outline.md"
+  },
+  "pages": [
+    {
+      "page_id": "P01",
+      "page_title": "Swiss System Demo",
+      "page_goal": "Verify swiss-system CSS loads and renders a cover.",
+      "page_role_in_story": "cover",
+      "key_message": "Strict grid, one accent, clear structure.",
+      "on_slide_text": {
+        "headline": "Image-first means visible pages first",
+        "sub_headline": "Swiss preset acceptance sample",
+        "body": [],
+        "caption": "P01 / cover image"
+      },
+      "speaker_notes": "This sample uses repository placeholder PNGs so UAT can run without consuming API quota.",
+      "visual_direction": "dark editorial cover image with oversized serif type and warm accent block",
+      "layout_type": "cover",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "anchor"
+    },
+    {
+      "page_id": "P02",
+      "page_title": "Grid Rules",
+      "page_goal": "Verify two-column body mapping in swiss style.",
+      "page_role_in_story": "context",
+      "key_message": "A Swiss page should make hierarchy feel inevitable.",
+      "on_slide_text": {
+        "headline": "Grid Rules",
+        "body": [
+          "Lead: one clear structure statement",
+          "Alignment: every block follows the grid",
+          "Accent: one Klein blue signal",
+          "Density: information is compact but readable"
+        ],
+        "caption": "P02 / two-column"
+      },
+      "speaker_notes": "Use this page to explain that image-first still preserves prompts and manifests for later regeneration.",
+      "visual_direction": "editorial two-column explainer image with image files and prompt archive motifs",
+      "layout_type": "two-column",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "dense"
+    },
+    {
+      "page_id": "P03",
+      "page_title": "Operating Model",
+      "page_goal": "Verify framework tiles in swiss style.",
+      "page_role_in_story": "framework",
+      "key_message": "The preset contract is an operating model.",
+      "on_slide_text": {
+        "headline": "Operating Model",
+        "body": [
+          "Lock: style values are frozen",
+          "Render: build_html.py loads CSS",
+          "Check: Style Guard catches drift"
+        ],
+        "caption": "P03 / framework"
+      },
+      "speaker_notes": "This page maps to the required prompts/ and images_manifest.json files in the sample.",
+      "visual_direction": "three editorial modules showing prompt, image, manifest as linked assets",
+      "layout_type": "framework",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "dense"
+    },
+    {
+      "page_id": "P04",
+      "page_title": "Ship the System",
+      "page_goal": "Verify closing tiles in swiss style.",
+      "page_role_in_story": "takeaway",
+      "key_message": "If the grid holds, the demo is ready.",
+      "on_slide_text": {
+        "headline": "Ship the System",
+        "body": [
+          "Build: run build_html.py",
+          "Validate: run validate_html.py",
+          "Review: open in browser"
+        ],
+        "caption": "P04 / closing"
+      },
+      "speaker_notes": "Close by reminding UAT testers not to submit full production batches before a single-page smoke passes.",
+      "visual_direction": "closing editorial image with checklist and timing note",
+      "layout_type": "closing",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "anchor"
+    }
+  ]
+}

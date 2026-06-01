@@ -1,0 +1,27 @@
+{
+  "style_name": "sketch-notes",
+  "display_name": "Sketch Notes",
+  "texture": "warm paper grain, marker lines, soft hand-drawn fills",
+  "mood": "friendly, tactile, explanatory",
+  "typography": "bold marker-style headings with clear rounded handwritten body",
+  "density": "medium-low",
+  "color_palette": {
+    "primary_color": "#2C3E50",
+    "accent_color": "#F4A261",
+    "background_color": "#FAF8F0",
+    "text_primary_color": "#2C3E50",
+    "text_secondary_color": "#5F6F73",
+    "border_color": "#D8CDBA"
+  },
+  "font_heading": "\"Comic Sans MS\", \"Marker Felt\", \"Noto Sans SC\", sans-serif",
+  "font_body": "\"Trebuchet MS\", \"Comic Sans MS\", \"Noto Sans SC\", sans-serif",
+  "layout_bias": "freeform",
+  "image_style_description": "warm sketch notes, hand-drawn marker lines, friendly conceptual doodles, soft orange and sage accents, legible handwritten labels",
+  "negative_constraints": [
+    "no photorealistic scenes",
+    "no perfect corporate cards",
+    "no dense paragraphs",
+    "no glossy gradients",
+    "no tiny handwritten labels"
+  ]
+}

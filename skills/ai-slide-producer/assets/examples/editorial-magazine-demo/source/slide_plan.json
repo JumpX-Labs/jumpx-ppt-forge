@@ -1,0 +1,205 @@
+{
+  "deck_meta": {
+    "deck_title": "Editorial Magazine Demo",
+    "audience": "Product manager / training-camp reviewers",
+    "total_pages": 8,
+    "style_name": "editorial-magazine",
+    "narrative_arc": "Hook-Problem-Upgrade-Evidence-Takeaway",
+    "output_mode": "html-only",
+    "canvas_ratio": "16:9",
+    "language": "en-US",
+    "created_at": "2026-05-21T14:00:00+02:00",
+    "source_outline": "source/outline.md"
+  },
+  "pages": [
+    {
+      "page_id": "P01",
+      "page_title": "Editorial Magazine Demo",
+      "page_goal": "Establish that This sample shows product-level visual quality, not only renderer coverage.",
+      "page_role_in_story": "cover",
+      "key_message": "From files that render to slides that feel produced.",
+      "on_slide_text": {
+        "headline": "Editorial Magazine Demo",
+        "sub_headline": "Editorial Magazine preset acceptance sample",
+        "body": [],
+        "caption": "P01 / cover"
+      },
+      "speaker_notes": "Open by naming the shift: the pipeline already produces files; this preset shows an outward-facing visual standard.",
+      "visual_direction": "dark editorial cover with oversized serif headline and one warm accent block",
+      "layout_type": "cover",
+      "image_requirement": {
+        "needed": false,
+        "intent": "html visual sample",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "anchor"
+    },
+    {
+      "page_id": "P02",
+      "page_title": "From Demo to Product",
+      "page_goal": "Mark the transition from teaching-clean as a regression baseline to editorial-magazine as a product-facing preset.",
+      "page_role_in_story": "section-divider",
+      "key_message": "The renderer stays the same; the visual contract gets sharper.",
+      "on_slide_text": {
+        "headline": "From Demo to Product",
+        "body": [],
+        "caption": "P02 / section"
+      },
+      "speaker_notes": "This page should feel like a phase break. The point is that we are not migrating the whole template yet; we are improving the preset layer first.",
+      "visual_direction": "full accent chapter divider, strong issue-number energy",
+      "layout_type": "section-divider",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "breathing"
+    },
+    {
+      "page_id": "P03",
+      "page_title": "A deck should feel produced",
+      "page_goal": "State the core thesis for Editorial preset visual acceptance.",
+      "page_role_in_story": "core",
+      "key_message": "The product bar is not whether HTML exists. It is whether the first viewport earns trust.",
+      "on_slide_text": {
+        "headline": "A deck should feel produced",
+        "sub_headline": "The same layout snippets can carry a stronger art direction.",
+        "body": [],
+        "caption": "P03 / big idea"
+      },
+      "speaker_notes": "Use this as the thesis. Engineering demos are allowed to be plain; product demos need a visible point of view.",
+      "visual_direction": "large editorial statement on warm paper, no cards",
+      "layout_type": "big-idea",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "anchor"
+    },
+    {
+      "page_id": "P04",
+      "page_title": "What this preset changes",
+      "page_goal": "Explain the concrete scope of the first visual upgrade.",
+      "page_role_in_story": "context",
+      "key_message": "Two high-visual presets land first, while the existing renderer remains the contract.",
+      "on_slide_text": {
+        "headline": "Scope",
+        "body": [
+          "Editorial: magazine-grade contrast and typographic scale",
+          "Swiss: grid discipline, single accent, high-density clarity",
+          "Renderer: still build_html.py, no hand-written index.html",
+          "Seven presets ship with v1; pick one during Intake"
+        ],
+        "caption": "P04 / scope"
+      },
+      "speaker_notes": "Name the boundaries clearly. This is not a full template migration and not the Mixed implementation.",
+      "visual_direction": "editorial two-column page with one statement panel and a sharp list",
+      "layout_type": "two-column",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "dense"
+    },
+    {
+      "page_id": "P05",
+      "page_title": "Preset contract",
+      "page_goal": "Show the three-file contract that makes a preset executable.",
+      "page_role_in_story": "framework",
+      "key_message": "A style preset is both a visual system and a renderer contract.",
+      "on_slide_text": {
+        "headline": "Preset contract",
+        "body": [
+          "Reference: when to choose it and what it borrows",
+          "JSON: colors, fonts, density, image prompt language",
+          "CSS: actual browser rendering for the 10 snippets"
+        ],
+        "caption": "P05 / framework"
+      },
+      "speaker_notes": "Explain that JSON alone is not enough for HTML quality, and CSS alone is not enough for Image consistency.",
+      "visual_direction": "three editorial modules with bold labels",
+      "layout_type": "framework",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "dense"
+    },
+    {
+      "page_id": "P06",
+      "page_title": "Before / After / Next / Guardrail",
+      "page_goal": "Verify the comparison layout can render four panels and explain the upgrade path.",
+      "page_role_in_story": "comparison",
+      "key_message": "Comparison pages must support more than a two-card before/after.",
+      "on_slide_text": {
+        "headline": "Comparison",
+        "body": [
+          "Before: teaching-clean proved the pipeline",
+          "After: editorial-magazine raises the demo bar",
+          "Next: swiss-system validates dense structure",
+          "Guardrail: build_html.py remains mandatory"
+        ],
+        "caption": "P06 / four panels"
+      },
+      "speaker_notes": "This page specifically tests the build_html maps up to four comparison panels on this layout.",
+      "visual_direction": "four editorial comparison panels with alternating dark blocks",
+      "layout_type": "comparison",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "dense"
+    },
+    {
+      "page_id": "P07",
+      "page_title": "Product bar",
+      "page_goal": "Make the product manager feedback memorable.",
+      "page_role_in_story": "quote",
+      "key_message": "The Skill can prepare, render, choose style, and deliver like a product.",
+      "on_slide_text": {
+        "headline": "Product bar",
+        "body": [],
+        "caption": "Acceptance sample"
+      },
+      "speaker_notes": "Use this as the emotional anchor. It compresses the product feedback into a single standard.",
+      "visual_direction": "dark quote card with warm accent and magazine pull quote",
+      "layout_type": "quote",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "breathing"
+    },
+    {
+      "page_id": "P08",
+      "page_title": "Verify the preset",
+      "page_goal": "Close with the concrete checks reviewers should run.",
+      "page_role_in_story": "takeaway",
+      "key_message": "If the browser output feels produced, Editorial preset meets the bar.",
+      "on_slide_text": {
+        "headline": "Verify the preset",
+        "body": [
+          "Build: run build_html.py on this folder",
+          "Open: inspect index.html in browser",
+          "Compare: teaching-clean should feel plainer",
+          "Record: keep this as the 3b visual sample"
+        ],
+        "caption": "P08 / acceptance"
+      },
+      "speaker_notes": "Close by sending reviewers to the actual acceptance behavior, not just the files.",
+      "visual_direction": "closing page with editorial action tiles",
+      "layout_type": "closing",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "anchor"
+    }
+  ]
+}

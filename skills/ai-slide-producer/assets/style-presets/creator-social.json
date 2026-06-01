@@ -1,0 +1,27 @@
+{
+  "style_name": "creator-social",
+  "display_name": "Creator Social",
+  "texture": "clean creator carousel, product-card surfaces, crisp UI rhythm",
+  "mood": "direct, energetic, readable",
+  "typography": "bold screen-first sans headings with concise body rhythm",
+  "density": "medium",
+  "color_palette": {
+    "primary_color": "#1F1F1F",
+    "accent_color": "#2383E2",
+    "background_color": "#F7F7F5",
+    "text_primary_color": "#1F1F1F",
+    "text_secondary_color": "#6B6B6B",
+    "border_color": "#E5E5E5"
+  },
+  "font_heading": "Inter, \"SF Pro Display\", \"Noto Sans SC\", sans-serif",
+  "font_body": "Inter, \"SF Pro Text\", \"Noto Sans SC\", sans-serif",
+  "layout_bias": "centered",
+  "image_style_description": "clean creator carousel, high-contrast title cards, crisp product screenshots, simple UI cards, blue and green social accents",
+  "negative_constraints": [
+    "no ornamental magazine layouts",
+    "no complex backgrounds",
+    "no low-contrast text",
+    "no cluttered sticker collage",
+    "no tiny UI labels"
+  ]
+}

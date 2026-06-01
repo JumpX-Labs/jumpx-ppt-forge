@@ -1,0 +1,114 @@
+{
+  "deck_meta": {
+    "deck_title": "AI Slide Producer 工作流",
+    "audience": "AI 课程学员",
+    "total_pages": 4,
+    "style_name": "teaching-clean",
+    "narrative_arc": "Hook-Context-Core-Takeaway",
+    "output_mode": "html-only",
+    "canvas_ratio": "16:9",
+    "language": "zh-CN",
+    "created_at": "2026-05-21T09:00:00+02:00",
+    "source_outline": "source/outline.md"
+  },
+  "pages": [
+    {
+      "page_id": "P01",
+      "page_title": "从粗糙想法到可见 Slides",
+      "page_goal": "建立主题和价值承诺",
+      "page_role_in_story": "cover",
+      "key_message": "AI Slide Producer 把一次性请求变成可复用的生产工作流。",
+      "on_slide_text": {
+        "headline": "从粗糙想法到可见 Slides",
+        "sub_headline": "一条带 Gate、Style Lock 和交付检查的工作流",
+        "body": [],
+        "caption": "Phase 1 HTML demo"
+      },
+      "speaker_notes": "说明本 demo 展示的是 HTML 闭环，不包含图片 backend。",
+      "visual_direction": "clean opening slide with teaching-oriented hierarchy",
+      "layout_type": "cover",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "anchor"
+    },
+    {
+      "page_id": "P02",
+      "page_title": "为什么一次性生成不稳定",
+      "page_goal": "说明问题和产品原则",
+      "page_role_in_story": "context",
+      "key_message": "没有门禁和锁定参数，长流程很容易漂移。",
+      "on_slide_text": {
+        "headline": "漂移来自缺少生产纪律",
+        "body": [
+          "Brief 没确认：目标会漂",
+          "Style 没锁定：颜色和密度会漂",
+          "Prompt 不落盘：结果不可复用"
+        ],
+        "caption": "核心问题"
+      },
+      "speaker_notes": "强调这是生产系统问题，不只是 prompt 写得好不好。",
+      "visual_direction": "two column teaching explanation",
+      "layout_type": "two-column",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "dense"
+    },
+    {
+      "page_id": "P03",
+      "page_title": "九步工作流",
+      "page_goal": "展示解决框架",
+      "page_role_in_story": "framework",
+      "key_message": "流程为骨架，角色为能力，Gate 决定何时放大。",
+      "on_slide_text": {
+        "headline": "Workflow",
+        "body": [
+          "Intake: 澄清目标、受众、输出形态",
+          "Plan: 大纲、页面计划、内容审核",
+          "Render: Style Lock 后生成 HTML 或 Image"
+        ],
+        "caption": "三段式理解九步流程"
+      },
+      "speaker_notes": "把九步压缩为三段，便于首次理解。",
+      "visual_direction": "three educational tiles showing workflow stages",
+      "layout_type": "framework",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "dense"
+    },
+    {
+      "page_id": "P04",
+      "page_title": "下一步：先跑通 HTML 闭环",
+      "page_goal": "给出实施落点",
+      "page_role_in_story": "takeaway",
+      "key_message": "先让用户看见结果，再逐步扩展 Image 和 Mixed 能力。",
+      "on_slide_text": {
+        "headline": "Next",
+        "body": [
+          "补齐 reviewer / designer / web renderer",
+          "生成 index.html 并通过 QA",
+          "再接入图片 Prompt 与 backend"
+        ],
+        "caption": "Phase 1 目标"
+      },
+      "speaker_notes": "收束到下一阶段的可执行目标。",
+      "visual_direction": "clean closing slide with three next actions",
+      "layout_type": "closing",
+      "image_requirement": {
+        "needed": false,
+        "intent": "none",
+        "text_in_image_risk": "none"
+      },
+      "page_rhythm": "anchor"
+    }
+  ]
+}
+

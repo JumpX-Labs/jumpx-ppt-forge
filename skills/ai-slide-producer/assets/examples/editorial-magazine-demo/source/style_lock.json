@@ -1,0 +1,26 @@
+{
+  "deck_title": "Editorial Magazine Demo",
+  "audience": "Product manager / training-camp reviewers",
+  "canvas_ratio": "16:9",
+  "canvas_pixels": {
+    "width": 1920,
+    "height": 1080
+  },
+  "style_name": "editorial-magazine",
+  "primary_color": "#0A0A0B",
+  "accent_color": "#E0472E",
+  "background_color": "#F1EFEA",
+  "text_primary_color": "#0A0A0B",
+  "text_secondary_color": "#5E5A52",
+  "border_color": "#D8D1C3",
+  "font_heading": "Georgia, \"Times New Roman\", \"Noto Serif SC\", serif",
+  "font_body": "Inter, \"Helvetica Neue\", \"Noto Sans SC\", sans-serif",
+  "image_style": "premium magazine cover composition, bold editorial typography, warm paper texture, deep ink contrast, restrained color blocks, publication-grade art direction",
+  "density": "medium",
+  "layout_bias": "magazine",
+  "forbidden": [
+    "Do not hand-write index.html",
+    "Do not use generic grey SaaS cards",
+    "Do not rely on image generation for body text"
+  ]
+}

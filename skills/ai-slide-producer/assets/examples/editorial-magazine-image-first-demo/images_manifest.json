@@ -1,0 +1,58 @@
+{
+  "deck_title": "Editorial Magazine Image-first Demo",
+  "created_at": "2026-05-21T11:07:24+00:00",
+  "default_backend": "none",
+  "default_aspect_ratio": "16:9",
+  "entries": [
+    {
+      "slide_id": "P01",
+      "prompt_file": "prompts/01-slide-cover.md",
+      "image_file": "images/slide-01.png",
+      "backend": "none",
+      "aspect_ratio": "16:9",
+      "status": "ok",
+      "attempts": 0,
+      "note": "repository placeholder image for offline UAT"
+    },
+    {
+      "slide_id": "P02",
+      "prompt_file": "prompts/02-slide-what-image-first-proves.md",
+      "image_file": "images/slide-02.png",
+      "backend": "none",
+      "aspect_ratio": "16:9",
+      "status": "ok",
+      "attempts": 0,
+      "note": "repository placeholder image for offline UAT"
+    },
+    {
+      "slide_id": "P03",
+      "prompt_file": "prompts/03-slide-most-pages-ask-images.md",
+      "image_file": "images/slide-03.png",
+      "backend": "none",
+      "aspect_ratio": "16:9",
+      "status": "ok",
+      "attempts": 0,
+      "note": "repository placeholder image for offline UAT"
+    },
+    {
+      "slide_id": "P04",
+      "prompt_file": "prompts/04-slide-prompt-archive-contract.md",
+      "image_file": "images/slide-04.png",
+      "backend": "none",
+      "aspect_ratio": "16:9",
+      "status": "ok",
+      "attempts": 0,
+      "note": "repository placeholder image for offline UAT"
+    },
+    {
+      "slide_id": "P05",
+      "prompt_file": "prompts/05-slide-run-one-page-before-whole-deck.md",
+      "image_file": "images/slide-05.png",
+      "backend": "none",
+      "aspect_ratio": "16:9",
+      "status": "ok",
+      "attempts": 0,
+      "note": "repository placeholder image for offline UAT"
+    }
+  ]
+}

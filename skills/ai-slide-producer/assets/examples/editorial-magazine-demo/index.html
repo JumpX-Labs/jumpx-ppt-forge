@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Editorial Magazine Demo</title>
+  <style>
+:root {
+  --asp-bg: #F1EFEA;
+  --asp-ink: #0A0A0B;
+  --asp-accent: #E0472E;
+  --asp-font-heading: Georgia, "Times New Roman", "Noto Serif SC", serif;
+  --asp-font-body: Inter, "Helvetica Neue", "Noto Sans SC", sans-serif;
+  --asp-muted: #5E5A52;
+  --asp-line: #D8D1C3;
+}
+
+:root {
+  --asp-surface: #FBF7EF;
+  --asp-surface-strong: #E7DFD0;
+  --asp-accent-soft: #F6C6B8;
+  --asp-accent-alt: #174EA6;
+  --asp-accent-hot: #C21F5A;
+  --asp-paper-line: rgba(10, 10, 11, 0.18);
+  --asp-radius: 2px;
+  --asp-shadow: 0 28px 80px rgba(10, 10, 11, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--asp-bg);
+  color: var(--asp-ink);
+  font-family: var(--asp-font-body);
+  letter-spacing: 0;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.deck {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  width: 10000vw;
+  height: 100vh;
+  transition: transform 480ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.slide {
+  position: relative;
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100vh;
+  padding: 48px 66px 58px;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(10, 10, 11, 0.045) 1px, transparent 1px),
+    var(--asp-bg);
+  background-size: 92px 100%;
+}
+
+.slide::before {
+  content: "";
+  position: absolute;
+  inset: 30px;
+  pointer-events: none;
+  border: 1px solid var(--asp-paper-line);
+}
+
+.slide::after {
+  content: attr(data-role);
+  position: absolute;
+  right: 44px;
+  top: 46px;
+  color: rgba(10, 10, 11, 0.08);
+  font-family: var(--asp-font-heading);
+  font-size: 96px;
+  line-height: 0.8;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.slide-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  width: min(1510px, 100%);
+  height: 100%;
+  margin: 0 auto;
+  gap: 30px;
+}
+
+.slide-kicker,
+.slide-meta,
+.eyebrow {
+  color: var(--asp-accent);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.slide-title {
+  max-width: 1120px;
+  margin: 6px 0 0;
+  color: var(--asp-ink);
+  font-family: var(--asp-font-heading);
+  font-size: 70px;
+  line-height: 0.96;
+  font-weight: 900;
+}
+
+.slide-subtitle {
+  max-width: 920px;
+  margin: 18px 0 0;
+  color: var(--asp-muted);
+  font-size: 24px;
+  line-height: 1.45;
+}
+
+.slide-body {
+  color: var(--asp-ink);
+  font-size: 24px;
+  line-height: 1.52;
+}
+
+.slide-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 24px;
+  border-top: 1px solid var(--asp-paper-line);
+  padding-top: 14px;
+  color: var(--asp-muted);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.content-grid {
+  display: grid;
+  gap: 28px;
+  align-items: stretch;
+}
+
+.two-col {
+  grid-template-columns: 1.05fr 0.95fr;
+}
+
+.three-col {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.panel,
+.tile,
+.image-placeholder,
+.quote-block {
+  border: 1px solid var(--asp-paper-line);
+  border-radius: var(--asp-radius);
+  background: var(--asp-surface);
+  box-shadow: none;
+}
+
+.panel,
+.tile {
+  position: relative;
+  padding: 30px;
+}
+
+.tile::before,
+.panel::before {
+  content: "";
+  display: block;
+  width: 54px;
+  height: 8px;
+  margin-bottom: 24px;
+  background: var(--asp-accent);
+}
+
+.tile h3,
+.panel h3 {
+  margin: 0 0 14px;
+  color: var(--asp-ink);
+  font-family: var(--asp-font-heading);
+  font-size: 31px;
+  line-height: 1.08;
+  font-weight: 900;
+}
+
+.tile p,
+.panel p {
+  margin: 0;
+  color: var(--asp-muted);
+  font-size: 19px;
+  line-height: 1.55;
+}
+
+.body-list {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.body-list li {
+  position: relative;
+  padding: 18px 0 18px 34px;
+  border-top: 1px solid var(--asp-paper-line);
+}
+
+.body-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 27px;
+  width: 14px;
+  height: 14px;
+  background: var(--asp-accent);
+}
+
+.hero-layout {
+  align-content: center;
+  justify-items: start;
+}
+
+.hero-title {
+  max-width: 1180px;
+  margin: 0;
+  font-family: var(--asp-font-heading);
+  font-size: 104px;
+  line-height: 0.9;
+  font-weight: 900;
+}
+
+.hero-message {
+  max-width: 890px;
+  margin: 30px 0 0;
+  color: currentColor;
+  font-size: 30px;
+  line-height: 1.35;
+}
+
+.accent-bar {
+  width: 126px;
+  height: 14px;
+  margin-bottom: 28px;
+  background: var(--asp-accent);
+}
+
+.section-number {
+  color: var(--asp-accent);
+  font-family: var(--asp-font-heading);
+  font-size: 236px;
+  line-height: 0.78;
+  font-weight: 900;
+}
+
+.big-idea {
+  display: grid;
+  align-content: center;
+  min-height: 65vh;
+}
+
+.big-idea .statement {
+  max-width: 1180px;
+  margin: 0;
+  font-family: var(--asp-font-heading);
+  font-size: 76px;
+  line-height: 1.02;
+  font-weight: 900;
+}
+
+.quote-block {
+  align-self: center;
+  padding: 58px 64px;
+  background: var(--asp-ink);
+  color: var(--asp-bg);
+}
+
+.quote-mark {
+  color: var(--asp-accent);
+  font-family: var(--asp-font-heading);
+  font-size: 110px;
+  line-height: 0.62;
+}
+
+.quote-text {
+  margin: 0;
+  font-family: var(--asp-font-heading);
+  font-size: 55px;
+  line-height: 1.12;
+  font-weight: 900;
+}
+
+.quote-caption {
+  margin-top: 28px;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.step-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--asp-paper-line);
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: 22px;
+  align-items: start;
+  padding: 26px 0;
+  border-bottom: 1px solid var(--asp-paper-line);
+}
+
+.step-num {
+  color: var(--asp-accent);
+  font-family: var(--asp-font-heading);
+  font-size: 46px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.step-title {
+  margin: 0 0 6px;
+  font-family: var(--asp-font-heading);
+  font-size: 32px;
+  line-height: 1.08;
+}
+
+.step-copy {
+  margin: 0;
+  color: var(--asp-muted);
+  font-size: 19px;
+  line-height: 1.52;
+}
+
+.comparison {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.comparison .panel {
+  min-height: 360px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.comparison .panel:nth-child(even) {
+  background: var(--asp-ink);
+  color: var(--asp-bg);
+}
+
+.comparison .panel:nth-child(even) p {
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.image-placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 390px;
+  padding: 30px;
+  color: var(--asp-muted);
+  text-align: center;
+  background:
+    linear-gradient(135deg, rgba(224, 71, 46, 0.16), transparent 48%),
+    var(--asp-surface);
+}
+
+.image-placeholder img {
+  width: 100%;
+  height: 100%;
+  max-height: 470px;
+  object-fit: cover;
+  border-radius: var(--asp-radius);
+}
+
+.closing-title {
+  max-width: 1040px;
+  margin: 0;
+  font-family: var(--asp-font-heading);
+  font-size: 82px;
+  line-height: 0.98;
+  font-weight: 900;
+}
+
+.closing-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 38px;
+}
+
+.slide[data-layout="cover"],
+.slide[data-layout="quote"] {
+  background: var(--asp-ink);
+  color: var(--asp-bg);
+}
+
+.slide[data-layout="cover"]::before,
+.slide[data-layout="quote"]::before {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.slide[data-layout="cover"]::after,
+.slide[data-layout="quote"]::after {
+  color: rgba(255, 255, 255, 0.08);
+}
+
+.slide[data-layout="cover"] .slide-footer,
+.slide[data-layout="quote"] .slide-footer {
+  border-color: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.68);
+}
+
+.slide[data-layout="cover"] .slide-kicker,
+.slide[data-layout="quote"] .slide-meta {
+  color: var(--asp-accent);
+}
+
+.slide[data-layout="section-divider"] {
+  background: var(--asp-accent);
+  color: var(--asp-bg);
+}
+
+.slide[data-layout="section-divider"] .slide-title,
+.slide[data-layout="section-divider"] .slide-subtitle,
+.slide[data-layout="section-divider"] .section-number,
+.slide[data-layout="section-divider"] .slide-footer,
+.slide[data-layout="section-divider"] .slide-meta {
+  color: var(--asp-bg);
+}
+
+.slide[data-layout="section-divider"]::before,
+.slide[data-layout="section-divider"] .slide-footer {
+  border-color: rgba(255, 255, 255, 0.34);
+}
+
+.slide-controls {
+  position: fixed;
+  right: 24px;
+  bottom: 20px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border: 1px solid rgba(10, 10, 11, 0.18);
+  border-radius: 999px;
+  background: rgba(251, 247, 239, 0.86);
+  backdrop-filter: blur(12px);
+}
+
+.nav-button {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--asp-ink);
+  color: var(--asp-bg);
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.progress {
+  min-width: 48px;
+  color: var(--asp-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.slide-index {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  padding: 42px;
+  background: rgba(10, 10, 11, 0.9);
+  backdrop-filter: blur(14px);
+}
+
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px;
+}
+
+.index-card {
+  min-height: 120px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--asp-radius);
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  text-align: left;
+  cursor: pointer;
+}
+
+.index-card strong {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: var(--asp-accent-soft);
+}
+
+.index-card span {
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.notes {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .slide {
+    padding: 34px 28px 58px;
+  }
+
+  .slide::before,
+  .slide::after {
+    display: none;
+  }
+
+  .slide-title,
+  .hero-title,
+  .closing-title {
+    font-size: 46px;
+    line-height: 1.03;
+  }
+
+  .big-idea .statement,
+  .quote-text {
+    font-size: 38px;
+  }
+
+  .two-col,
+  .three-col,
+  .comparison,
+  .closing-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .slide-controls {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+}
+
+  </style>
+</head>
+<body>
+  <main id="deck" class="deck" aria-label="Editorial Magazine Demo">
+  <section class="slide" data-page-id="P01" data-layout="cover" data-role="cover">
+<div class="slide-inner hero-layout">
+  <header>
+    <div class="accent-bar"></div>
+    <div class="slide-kicker">cover</div>
+  </header>
+  <section>
+    <h1 class="hero-title">Editorial Magazine Demo</h1>
+    <p class="hero-message">From files that render to slides that feel produced.</p>
+  </section>
+  <footer class="slide-footer">
+    <span>Editorial Magazine Demo</span>
+    <span>1 / 8</span>
+  </footer>
+</div>
+<aside class="notes" hidden>Open by naming the shift: the pipeline already produces files; this preset shows an outward-facing visual standard.</aside>
+
+
+  </section>
+  <section class="slide" data-page-id="P02" data-layout="section-divider" data-role="section-divider">
+<div class="slide-inner">
+  <header class="slide-meta">section-divider</header>
+  <section class="content-grid two-col">
+    <div>
+      <div class="section-number">2</div>
+    </div>
+    <div>
+      <h2 class="slide-title">From Demo to Product</h2>
+      <p class="slide-subtitle">The renderer stays the same; the visual contract gets sharper.</p>
+    </div>
+  </section>
+  <footer class="slide-footer">
+    <span>Editorial Magazine Demo</span>
+    <span>2 / 8</span>
+  </footer>
+</div>
+<aside class="notes" hidden>This page should feel like a phase break. The point is that we are not migrating the whole template yet; we are improving the preset layer first.</aside>
+
+
+  </section>
+  <section class="slide" data-page-id="P03" data-layout="big-idea" data-role="core">
+<div class="slide-inner">
+  <header class="slide-meta">core</header>
+  <section class="big-idea">
+    <p class="statement">The product bar is not whether HTML exists. It is whether the first viewport earns trust.</p>
+    <p class="slide-subtitle">The same layout snippets can carry a stronger art direction.</p>
+  </section>
+  <footer class="slide-footer">
+    <span>A deck should feel produced</span>
+    <span>3 / 8</span>
+  </footer>
+</div>
+<aside class="notes" hidden>Use this as the thesis. Engineering demos are allowed to be plain; product demos need a visible point of view.</aside>
+
+
+  </section>
+  <section class="slide" data-page-id="P04" data-layout="two-column" data-role="context">
+<div class="slide-inner">
+  <header>
+    <div class="slide-kicker">context</div>
+    <h2 class="slide-title">What this preset changes</h2>
+  </header>
+  <section class="content-grid two-col">
+    <div class="panel">
+      <h3>Scope</h3>
+      <p>Editorial: magazine-grade contrast and typographic scale</p>
+    </div>
+    <div class="slide-body">
+      <ul class="body-list">
+        <li>Swiss: grid discipline, single accent, high-density clarity</li>
+        <li>Renderer: still build_html.py, no hand-written index.html</li>
+        <li>Seven presets ship with v1; pick one during Intake</li>
+      </ul>
+    </div>
+  </section>
+  <footer class="slide-footer">
+    <span>P04 / scope</span>
+    <span>4 / 8</span>
+  </footer>
+</div>
+<aside class="notes" hidden>Name the boundaries clearly. This is not a full template migration and not the Mixed implementation.</aside>
+
+  </section>
+  <section class="slide" data-page-id="P05" data-layout="framework" data-role="framework">
+<div class="slide-inner">
+  <header>
+    <div class="slide-kicker">framework</div>
+    <h2 class="slide-title">Preset contract</h2>
+    <p class="slide-subtitle">A style preset is both a visual system and a renderer contract.</p>
+  </header>
+  <section class="content-grid three-col">
+        <article class="tile"><h3>Reference</h3><p>when to choose it and what it borrows</p></article>
+    <article class="tile"><h3>JSON</h3><p>colors, fonts, density, image prompt language</p></article>
+    <article class="tile"><h3>CSS</h3><p>actual browser rendering for the 10 snippets</p></article>
+  </section>
+  <footer class="slide-footer">
+    <span>P05 / framework</span>
+    <span>5 / 8</span>
+  </footer>
+</div>
+<aside class="notes" hidden>Explain that JSON alone is not enough for HTML quality, and CSS alone is not enough for Image consistency.</aside>
+
+
+  </section>
+  <section class="slide" data-page-id="P06" data-layout="comparison" data-role="comparison">
+<div class="slide-inner">
+  <header>
+    <div class="slide-kicker">comparison</div>
+    <h2 class="slide-title">Before / After / Next / Guardrail</h2>
+  </header>
+  <section class="comparison">
+        <article class="panel"><h3>Before</h3><p>teaching-clean proved the pipeline</p></article>
+    <article class="panel"><h3>After</h3><p>editorial-magazine raises the demo bar</p></article>
+    <article class="panel"><h3>Next</h3><p>swiss-system validates dense structure</p></article>
+    <article class="panel"><h3>Guardrail</h3><p>build_html.py remains mandatory</p></article>
+  </section>
+  <footer class="slide-footer">
+    <span>Comparison pages must support more than a two-card before/after.</span>
+    <span>6 / 8</span>
+  </footer>
+</div>
+<aside class="notes" hidden>This page specifically tests the build_html maps up to four comparison panels on this layout.</aside>
+
+
+  </section>
+  <section class="slide" data-page-id="P07" data-layout="quote" data-role="quote">
+<div class="slide-inner">
+  <header class="slide-meta">quote</header>
+  <section class="quote-block">
+    <div class="quote-mark">“</div>
+    <p class="quote-text">The Skill can prepare, render, choose style, and deliver like a product.</p>
+    <div class="quote-caption">Acceptance sample</div>
+  </section>
+  <footer class="slide-footer">
+    <span>Product bar</span>
+    <span>7 / 8</span>
+  </footer>
+</div>
+<aside class="notes" hidden>Use this as the emotional anchor. It compresses the product feedback into a single standard.</aside>
+
+
+  </section>
+  <section class="slide" data-page-id="P08" data-layout="closing" data-role="takeaway">
+<div class="slide-inner hero-layout">
+  <header>
+    <div class="accent-bar"></div>
+    <div class="slide-kicker">takeaway</div>
+  </header>
+  <section>
+    <h2 class="closing-title">Verify the preset</h2>
+    <p class="hero-message">If the browser output feels produced, Editorial preset meets the bar.</p>
+    <div class="closing-actions">
+          <article class="tile"><h3>Build</h3><p>run build_html.py on this folder</p></article>
+    <article class="tile"><h3>Open</h3><p>inspect index.html in browser</p></article>
+    <article class="tile"><h3>Compare</h3><p>teaching-clean should feel plainer</p></article>
+    <article class="tile"><h3>Record</h3><p>keep this as the 3b visual sample</p></article>
+    </div>
+  </section>
+  <footer class="slide-footer">
+    <span>Editorial Magazine Demo</span>
+    <span>8 / 8</span>
+  </footer>
+</div>
+<aside class="notes" hidden>Close by sending reviewers to the actual acceptance behavior, not just the files.</aside>
+
+
+  </section>
+  </main>
+  <nav class="slide-controls" aria-label="Slide controls">
+    <button type="button" class="nav-button" data-action="prev" aria-label="Previous slide">‹</button>
+    <div class="progress" aria-live="polite"><span id="current-slide">1</span><span>/</span><span id="total-slides">8</span></div>
+    <button type="button" class="nav-button" data-action="next" aria-label="Next slide">›</button>
+  </nav>
+  <div id="index" class="slide-index" hidden>
+    <div class="index-grid" role="list">
+      <button class="index-card" type="button" role="listitem" data-index-target="0"><strong>01</strong><span>Editorial Magazine Demo</span></button>
+      <button class="index-card" type="button" role="listitem" data-index-target="1"><strong>02</strong><span>From Demo to Product</span></button>
+      <button class="index-card" type="button" role="listitem" data-index-target="2"><strong>03</strong><span>A deck should feel produced</span></button>
+      <button class="index-card" type="button" role="listitem" data-index-target="3"><strong>04</strong><span>What this preset changes</span></button>
+      <button class="index-card" type="button" role="listitem" data-index-target="4"><strong>05</strong><span>Preset contract</span></button>
+      <button class="index-card" type="button" role="listitem" data-index-target="5"><strong>06</strong><span>Before / After / Next / Guardrail</span></button>
+      <button class="index-card" type="button" role="listitem" data-index-target="6"><strong>07</strong><span>Product bar</span></button>
+      <button class="index-card" type="button" role="listitem" data-index-target="7"><strong>08</strong><span>Verify the preset</span></button>
+    </div>
+  </div>
+  <script>
+  (() => {
+    const deck = document.getElementById("deck");
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const current = document.getElementById("current-slide");
+    const index = document.getElementById("index");
+    let active = 0;
+
+    function clamp(value) {
+      return Math.max(0, Math.min(slides.length - 1, value));
+    }
+
+    function go(next) {
+      active = clamp(next);
+      deck.style.transform = `translateX(${-active * 100}vw)`;
+      current.textContent = String(active + 1);
+      slides.forEach((slide, i) => {
+        slide.setAttribute("aria-hidden", i === active ? "false" : "true");
+      });
+    }
+
+    function toggleIndex(force) {
+      const show = typeof force === "boolean" ? force : index.hidden;
+      index.hidden = !show;
+    }
+
+    document.querySelector('[data-action="prev"]').addEventListener("click", () => go(active - 1));
+    document.querySelector('[data-action="next"]').addEventListener("click", () => go(active + 1));
+    document.querySelectorAll("[data-index-target]").forEach((button) => {
+      button.addEventListener("click", () => {
+        toggleIndex(false);
+        go(Number(button.dataset.indexTarget));
+      });
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight" || event.key === "PageDown" || event.key === " ") go(active + 1);
+      if (event.key === "ArrowLeft" || event.key === "PageUp") go(active - 1);
+      if (event.key === "Escape") toggleIndex();
+    });
+
+    let touchStart = null;
+    window.addEventListener("touchstart", (event) => {
+      touchStart = event.changedTouches[0].clientX;
+    }, { passive: true });
+    window.addEventListener("touchend", (event) => {
+      if (touchStart === null) return;
+      const delta = event.changedTouches[0].clientX - touchStart;
+      if (Math.abs(delta) > 48) go(active + (delta < 0 ? 1 : -1));
+      touchStart = null;
+    }, { passive: true });
+
+    go(0);
+  })();
+  </script>
+</body>
+</html>
+

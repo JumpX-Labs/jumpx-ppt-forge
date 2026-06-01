@@ -32,3 +32,9 @@ venv/
 # 压缩包（不入库）
 *.zip
 *.tar.gz
+
+# 上游参考仓库（本地 clone，不入库；见 references/README.md）
+/references/baoyu-skills/
+/references/guizang-ppt-skill/
+/references/ppt-master/
+

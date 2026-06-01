@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://ai-slide-producer/schemas/style_lock.schema.json",
+  "title": "Style Lock",
+  "description": "Machine-readable visual contract. After Gate 4 (Style Locked), READ-ONLY for the rest of the pipeline. Web Renderer (7B) and Image Renderer (7A) MUST re-read this before every page.",
+  "type": "object",
+  "required": [
+    "deck_title",
+    "audience",
+    "canvas_ratio",
+    "style_name",
+    "primary_color",
+    "accent_color",
+    "background_color",
+    "font_heading",
+    "font_body",
+    "image_style",
+    "density",
+    "forbidden"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "deck_title": { "type": "string", "minLength": 1 },
+    "audience": { "type": "string", "minLength": 1 },
+
+    "canvas_ratio": {
+      "type": "string",
+      "enum": ["16:9", "4:3", "1:1", "3:4", "9:16"]
+    },
+    "canvas_pixels": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "width": { "type": "integer", "minimum": 320 },
+        "height": { "type": "integer", "minimum": 320 }
+      },
+      "description": "Recommended pixel canvas. Defaults: 16:9 → 1920x1080, 4:3 → 1440x1080, 1:1 → 1080x1080, 3:4 → 1080x1440, 9:16 → 1080x1920."
+    },
+
+    "style_name": {
+      "type": "string",
+      "enum": [
+        "teaching-clean",
+        "swiss-system",
+        "editorial-magazine",
+        "blueprint",
+        "sketch-notes",
+        "corporate",
+        "creator-social"
+      ]
+    },
+
+    "primary_color": { "$ref": "#/$defs/hex" },
+    "accent_color": { "$ref": "#/$defs/hex" },
+    "background_color": { "$ref": "#/$defs/hex" },
+    "text_primary_color": { "$ref": "#/$defs/hex" },
+    "text_secondary_color": { "$ref": "#/$defs/hex" },
+    "border_color": { "$ref": "#/$defs/hex" },
+
+    "color_palette": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "hex", "usage"],
+        "additionalProperties": false,
+        "properties": {
+          "name": { "type": "string" },
+          "hex": { "$ref": "#/$defs/hex" },
+          "usage": { "type": "string", "description": "Where this color is used: background, headline, body, accent, divider, ..." }
+        }
+      },
+      "description": "Optional extended palette. primary/accent/background above are the required minimum set."
+    },
+
+    "font_heading": {
+      "type": "string",
+      "description": "CSS font-stack string for headings. Must end with a cross-platform fallback (e.g. 'Inter, \"Noto Sans SC\", sans-serif')."
+    },
+    "font_body": {
+      "type": "string",
+      "description": "CSS font-stack string for body text."
+    },
+    "font_emphasis": { "type": "string" },
+    "font_code": { "type": "string" },
+
+    "font_size_anchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Pixel sizes anchored to body. Other sizes derive as ratios.",
+      "properties": {
+        "body": { "type": "integer", "minimum": 12 },
+        "title": { "type": "integer", "minimum": 16 },
+        "subtitle": { "type": "integer", "minimum": 14 },
+        "caption": { "type": "integer", "minimum": 10 },
+        "hero": { "type": "integer", "minimum": 24 }
+      }
+    },
+
+    "image_style": {
+      "type": "string",
+      "description": "Single phrase describing the deck-wide image rendering style, e.g. 'clean educational diagram', 'editorial collage', 'hand-drawn sketch with watercolor'. Read by Image Renderer on every page. Pulled from assets/style-presets/<style_name>.json.image_style_description."
+    },
+    "image_palette": {
+      "type": "string",
+      "description": "Optional deck-wide image palette name, e.g. 'cool-corporate', 'warm-earth'. Defaults to deriving from primary/accent/background."
+    },
+
+    "density": {
+      "type": "string",
+      "enum": ["high", "medium-high", "medium", "medium-low", "low"],
+      "description": "Information density per page. Drives bullet count limits and whitespace."
+    },
+
+    "layout_bias": {
+      "type": "string",
+      "enum": ["grid", "asymmetric", "centered", "magazine", "freeform"],
+      "description": "Optional. Default selection by style_name; override only when intentional."
+    },
+
+    "icon_library": {
+      "type": "string",
+      "enum": ["none", "tabler-outline", "tabler-filled", "phosphor-duotone", "chunk-filled", "lucide", "simple-icons"]
+    },
+    "icon_stroke_width": {
+      "type": "number",
+      "enum": [1.5, 2, 3],
+      "description": "Required only when icon_library is stroke-style (tabler-outline, lucide)."
+    },
+
+    "page_rhythm": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "enum": ["anchor", "dense", "breathing"]
+      },
+      "description": "Per-page rhythm map keyed by page_id (P01, P02, ...). Borrowed from ppt-master. Empty = default 'dense' for all pages."
+    },
+
+    "forbidden": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Hard constraints. Each entry is a natural-language rule, e.g. '不要一上来讲 Agent', '禁止页面塞满文字', 'No marketing CTAs'. Both Writer (content) and Style Guard (visual) consult this list."
+    }
+  },
+
+  "$defs": {
+    "hex": {
+      "type": "string",
+      "pattern": "^#([0-9A-Fa-f]{3}|[0-9A-Fa-f]{6}|[0-9A-Fa-f]{8})$",
+      "description": "CSS hex color. 3, 6, or 8 hex digits (8 allows alpha)."
+    }
+  }
+}

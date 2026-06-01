@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Swiss System Demo</title>
+  <style>
+:root {
+  --asp-bg: #FAFAF8;
+  --asp-ink: #0A0A0A;
+  --asp-accent: #002FA7;
+  --asp-font-heading: "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+  --asp-font-body: "Helvetica Neue", Arial, "Noto Sans SC", sans-serif;
+  --asp-muted: #737373;
+  --asp-line: #D4D4D2;
+}
+
+:root {
+  --asp-surface: #F0F0EE;
+  --asp-surface-strong: #E4E4E1;
+  --asp-accent-soft: #DDE6FF;
+  --swiss-grey-1: #F0F0EE;
+  --swiss-grey-2: #D4D4D2;
+  --swiss-grey-3: #737373;
+  --asp-radius: 0;
+  --asp-shadow: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--asp-bg);
+  color: var(--asp-ink);
+  font-family: var(--asp-font-body);
+  letter-spacing: 0;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.deck {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  width: 10000vw;
+  height: 100vh;
+  transition: transform 360ms ease;
+}
+
+.slide {
+  position: relative;
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100vh;
+  padding: 42px 64px 54px;
+  overflow: hidden;
+  background:
+    linear-gradient(90deg, rgba(10, 10, 10, 0.08) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(10, 10, 10, 0.06) 1px, transparent 1px),
+    var(--asp-bg);
+  background-size: 96px 96px;
+}
+
+.slide::before {
+  content: attr(data-page-id);
+  position: absolute;
+  top: 42px;
+  left: 64px;
+  color: var(--asp-accent);
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.slide::after {
+  content: "";
+  position: absolute;
+  left: 64px;
+  right: 64px;
+  top: 78px;
+  height: 2px;
+  background: var(--asp-ink);
+}
+
+.slide-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  width: min(1520px, 100%);
+  height: 100%;
+  margin: 0 auto;
+  gap: 30px;
+  padding-top: 54px;
+}
+
+.slide-kicker,
+.slide-meta,
+.eyebrow {
+  color: var(--asp-accent);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.slide-title {
+  max-width: 1160px;
+  margin: 12px 0 0;
+  color: var(--asp-ink);
+  font-family: var(--asp-font-heading);
+  font-size: 76px;
+  line-height: 0.94;
+  font-weight: 800;
+}
+
+.slide-subtitle {
+  max-width: 900px;
+  margin: 18px 0 0;
+  color: var(--swiss-grey-3);
+  font-size: 24px;
+  line-height: 1.42;
+}
+
+.slide-body {
+  color: var(--asp-ink);
+  font-size: 23px;
+  line-height: 1.5;
+}
+
+.slide-footer {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 20px;
+  align-items: center;
+  border-top: 2px solid var(--asp-ink);
+  padding-top: 12px;
+  color: var(--swiss-grey-3);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.content-grid {
+  display: grid;
+  gap: 18px;
+  align-items: stretch;
+}
+
+.two-col {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.three-col {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.panel,
+.tile,
+.image-placeholder,
+.quote-block {
+  border: 2px solid var(--asp-ink);
+  border-radius: 0;
+  background: var(--asp-bg);
+  box-shadow: none;
+}
+
+.panel,
+.tile {
+  padding: 26px;
+}
+
+.tile h3,
+.panel h3 {
+  margin: 0 0 14px;
+  font-size: 29px;
+  line-height: 1.06;
+  font-weight: 800;
+}
+
+.tile p,
+.panel p {
+  margin: 0;
+  color: var(--swiss-grey-3);
+  font-size: 18px;
+  line-height: 1.48;
+}
+
+.body-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 2px solid var(--asp-ink);
+}
+
+.body-list li {
+  position: relative;
+  padding: 18px 0 18px 44px;
+  border-bottom: 1px solid var(--swiss-grey-2);
+}
+
+.body-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 20px;
+  width: 20px;
+  height: 20px;
+  background: var(--asp-accent);
+}
+
+.hero-layout {
+  align-content: center;
+  justify-items: stretch;
+}
+
+.hero-title {
+  max-width: 1220px;
+  margin: 0;
+  font-family: var(--asp-font-heading);
+  font-size: 110px;
+  line-height: 0.88;
+  font-weight: 900;
+}
+
+.hero-message {
+  max-width: 760px;
+  margin: 34px 0 0;
+  color: var(--asp-ink);
+  font-size: 29px;
+  line-height: 1.34;
+}
+
+.accent-bar {
+  width: 100%;
+  height: 18px;
+  margin-bottom: 32px;
+  background: var(--asp-accent);
+}
+
+.section-number {
+  color: var(--asp-accent);
+  font-size: 230px;
+  line-height: 0.78;
+  font-weight: 900;
+}
+
+.big-idea {
+  display: grid;
+  align-content: center;
+  min-height: 65vh;
+}
+
+.big-idea .statement {
+  max-width: 1200px;
+  margin: 0;
+  font-size: 76px;
+  line-height: 1.02;
+  font-weight: 800;
+}
+
+.quote-block {
+  align-self: center;
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 34px;
+  padding: 44px;
+  background: var(--asp-accent);
+  color: white;
+}
+
+.quote-mark {
+  color: white;
+  font-size: 120px;
+  line-height: 0.62;
+  font-weight: 900;
+}
+
+.quote-text {
+  margin: 0;
+  font-size: 48px;
+  line-height: 1.16;
+  font-weight: 800;
+}
+
+.quote-caption {
+  grid-column: 2;
+  margin-top: 16px;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.step-list {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 2px solid var(--asp-ink);
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 86px 1fr;
+  gap: 24px;
+  align-items: start;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--swiss-grey-2);
+}
+
+.step-num {
+  color: var(--asp-accent);
+  font-size: 38px;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.step-title {
+  margin: 0 0 4px;
+  font-size: 30px;
+  line-height: 1.08;
+}
+
+.step-copy {
+  margin: 0;
+  color: var(--swiss-grey-3);
+  font-size: 18px;
+  line-height: 1.46;
+}
+
+.comparison {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.comparison .panel {
+  min-height: 360px;
+}
+
+.comparison .panel:nth-child(1),
+.comparison .panel:nth-child(4) {
+  background: var(--asp-accent);
+  color: white;
+}
+
+.comparison .panel:nth-child(1) p,
+.comparison .panel:nth-child(4) p {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.image-placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 390px;
+  padding: 28px;
+  color: var(--swiss-grey-3);
+  text-align: center;
+  background: var(--swiss-grey-1);
+}
+
+.image-placeholder img {
+  width: 100%;
+  height: 100%;
+  max-height: 470px;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.closing-title {
+  max-width: 1080px;
+  margin: 0;
+  font-size: 88px;
+  line-height: 0.94;
+  font-weight: 900;
+}
+
+.closing-actions {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.slide[data-layout="section-divider"] {
+  background: var(--asp-ink);
+  color: white;
+}
+
+.slide[data-layout="section-divider"]::after {
+  background: white;
+}
+
+.slide[data-layout="section-divider"] .slide-title,
+.slide[data-layout="section-divider"] .slide-subtitle,
+.slide[data-layout="section-divider"] .slide-footer,
+.slide[data-layout="section-divider"] .slide-meta {
+  color: white;
+}
+
+.slide[data-layout="section-divider"] .section-number {
+  color: var(--asp-accent);
+}
+
+.slide[data-layout="section-divider"] .slide-footer {
+  border-color: white;
+}
+
+.slide-controls {
+  position: fixed;
+  right: 24px;
+  bottom: 20px;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px;
+  border: 2px solid var(--asp-ink);
+  border-radius: 0;
+  background: var(--asp-bg);
+}
+
+.nav-button {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 0;
+  background: var(--asp-ink);
+  color: white;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.progress {
+  min-width: 48px;
+  color: var(--swiss-grey-3);
+  font-size: 13px;
+  text-align: center;
+}
+
+.slide-index {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  padding: 42px;
+  background: rgba(250, 250, 248, 0.96);
+}
+
+.index-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 16px;
+}
+
+.index-card {
+  min-height: 120px;
+  padding: 18px;
+  border: 2px solid var(--asp-ink);
+  border-radius: 0;
+  background: var(--asp-bg);
+  color: var(--asp-ink);
+  text-align: left;
+  cursor: pointer;
+}
+
+.index-card strong {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: var(--asp-accent);
+}
+
+.index-card span {
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.notes {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .slide {
+    padding: 34px 28px 58px;
+  }
+
+  .slide::before,
+  .slide::after {
+    display: none;
+  }
+
+  .slide-title,
+  .hero-title,
+  .closing-title {
+    font-size: 46px;
+    line-height: 1.02;
+  }
+
+  .big-idea .statement,
+  .quote-text {
+    font-size: 38px;
+  }
+
+  .quote-block,
+  .two-col,
+  .three-col,
+  .comparison,
+  .closing-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .slide-controls {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+}
+
+  </style>
+</head>
+<body>
+  <main id="deck" class="deck" aria-label="Swiss System Demo">
+  <section class="slide" data-page-id="P01" data-layout="cover" data-role="cover">
+<div class="slide-inner hero-layout">
+  <header>
+    <div class="accent-bar"></div>
+    <div class="slide-kicker">cover</div>
+  </header>
+  <section>
+    <h1 class="hero-title">Swiss System Demo</h1>
+    <p class="hero-message">Strict grid, one accent, clear structure.</p>
+  </section>
+  <footer class="slide-footer">
+    <span>Swiss System Demo</span>
+    <span>1 / 4</span>
+  </footer>
+</div>
+<aside class="notes" hidden>This sample uses repository placeholder PNGs so UAT can run without consuming API quota.</aside>
+
+
+  </section>
+  <section class="slide" data-page-id="P02" data-layout="two-column" data-role="context">
+<div class="slide-inner">
+  <header>
+    <div class="slide-kicker">context</div>
+    <h2 class="slide-title">Grid Rules</h2>
+  </header>
+  <section class="content-grid two-col">
+    <div class="panel">
+      <h3>Grid Rules</h3>
+      <p>Lead: one clear structure statement</p>
+    </div>
+    <div class="slide-body">
+      <ul class="body-list">
+        <li>Alignment: every block follows the grid</li>
+        <li>Accent: one Klein blue signal</li>
+        <li>Density: information is compact but readable</li>
+      </ul>
+    </div>
+  </section>
+  <footer class="slide-footer">
+    <span>P02 / two-column</span>
+    <span>2 / 4</span>
+  </footer>
+</div>
+<aside class="notes" hidden>Use this page to explain that image-first still preserves prompts and manifests for later regeneration.</aside>
+
+  </section>
+  <section class="slide" data-page-id="P03" data-layout="framework" data-role="framework">
+<div class="slide-inner">
+  <header>
+    <div class="slide-kicker">framework</div>
+    <h2 class="slide-title">Operating Model</h2>
+    <p class="slide-subtitle">The preset contract is an operating model.</p>
+  </header>
+  <section class="content-grid three-col">
+        <article class="tile"><h3>Lock</h3><p>style values are frozen</p></article>
+    <article class="tile"><h3>Render</h3><p>build_html.py loads CSS</p></article>
+    <article class="tile"><h3>Check</h3><p>Style Guard catches drift</p></article>
+  </section>
+  <footer class="slide-footer">
+    <span>P03 / framework</span>
+    <span>3 / 4</span>
+  </footer>
+</div>
+<aside class="notes" hidden>This page maps to the required prompts/ and images_manifest.json files in the sample.</aside>
+
+
+  </section>
+  <section class="slide" data-page-id="P04" data-layout="closing" data-role="takeaway">
+<div class="slide-inner hero-layout">
+  <header>
+    <div class="accent-bar"></div>
+    <div class="slide-kicker">takeaway</div>
+  </header>
+  <section>
+    <h2 class="closing-title">Ship the System</h2>
+    <p class="hero-message">If the grid holds, the demo is ready.</p>
+    <div class="closing-actions">
+          <article class="tile"><h3>Build</h3><p>run build_html.py</p></article>
+    <article class="tile"><h3>Validate</h3><p>run validate_html.py</p></article>
+    <article class="tile"><h3>Review</h3><p>open in browser</p></article>
+    </div>
+  </section>
+  <footer class="slide-footer">
+    <span>Swiss System Demo</span>
+    <span>4 / 4</span>
+  </footer>
+</div>
+<aside class="notes" hidden>Close by reminding UAT testers not to submit full production batches before a single-page smoke passes.</aside>
+
+
+  </section>
+  </main>
+  <nav class="slide-controls" aria-label="Slide controls">
+    <button type="button" class="nav-button" data-action="prev" aria-label="Previous slide">‹</button>
+    <div class="progress" aria-live="polite"><span id="current-slide">1</span><span>/</span><span id="total-slides">4</span></div>
+    <button type="button" class="nav-button" data-action="next" aria-label="Next slide">›</button>
+  </nav>
+  <div id="index" class="slide-index" hidden>
+    <div class="index-grid" role="list">
+      <button class="index-card" type="button" role="listitem" data-index-target="0"><strong>01</strong><span>Swiss System Demo</span></button>
+      <button class="index-card" type="button" role="listitem" data-index-target="1"><strong>02</strong><span>Grid Rules</span></button>
+      <button class="index-card" type="button" role="listitem" data-index-target="2"><strong>03</strong><span>Operating Model</span></button>
+      <button class="index-card" type="button" role="listitem" data-index-target="3"><strong>04</strong><span>Ship the System</span></button>
+    </div>
+  </div>
+  <script>
+  (() => {
+    const deck = document.getElementById("deck");
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const current = document.getElementById("current-slide");
+    const index = document.getElementById("index");
+    let active = 0;
+
+    function clamp(value) {
+      return Math.max(0, Math.min(slides.length - 1, value));
+    }
+
+    function go(next) {
+      active = clamp(next);
+      deck.style.transform = `translateX(${-active * 100}vw)`;
+      current.textContent = String(active + 1);
+      slides.forEach((slide, i) => {
+        slide.setAttribute("aria-hidden", i === active ? "false" : "true");
+      });
+    }
+
+    function toggleIndex(force) {
+      const show = typeof force === "boolean" ? force : index.hidden;
+      index.hidden = !show;
+    }
+
+    document.querySelector('[data-action="prev"]').addEventListener("click", () => go(active - 1));
+    document.querySelector('[data-action="next"]').addEventListener("click", () => go(active + 1));
+    document.querySelectorAll("[data-index-target]").forEach((button) => {
+      button.addEventListener("click", () => {
+        toggleIndex(false);
+        go(Number(button.dataset.indexTarget));
+      });
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight" || event.key === "PageDown" || event.key === " ") go(active + 1);
+      if (event.key === "ArrowLeft" || event.key === "PageUp") go(active - 1);
+      if (event.key === "Escape") toggleIndex();
+    });
+
+    let touchStart = null;
+    window.addEventListener("touchstart", (event) => {
+      touchStart = event.changedTouches[0].clientX;
+    }, { passive: true });
+    window.addEventListener("touchend", (event) => {
+      if (touchStart === null) return;
+      const delta = event.changedTouches[0].clientX - touchStart;
+      if (Math.abs(delta) > 48) go(active + (delta < 0 ? 1 : -1));
+      touchStart = null;
+    }, { passive: true });
+
+    go(0);
+  })();
+  </script>
+</body>
+</html>
+

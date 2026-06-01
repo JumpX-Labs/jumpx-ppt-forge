@@ -1,0 +1,98 @@
+{
+  "deck_title": "Teaching Clean Layout Gallery",
+  "created_at": "2026-05-21T07:57:45+00:00",
+  "default_backend": "none",
+  "default_aspect_ratio": "16:9",
+  "entries": [
+    {
+      "slide_id": "P01",
+      "prompt_file": "prompts/01-slide-cover.md",
+      "image_file": "",
+      "backend": "none",
+      "aspect_ratio": "16:9",
+      "status": "pending",
+      "attempts": 0
+    },
+    {
+      "slide_id": "P02",
+      "prompt_file": "prompts/02-slide-section-divider.md",
+      "image_file": "",
+      "backend": "none",
+      "aspect_ratio": "16:9",
+      "status": "pending",
+      "attempts": 0
+    },
+    {
+      "slide_id": "P03",
+      "prompt_file": "prompts/03-slide-big-idea.md",
+      "image_file": "",
+      "backend": "none",
+      "aspect_ratio": "16:9",
+      "status": "pending",
+      "attempts": 0
+    },
+    {
+      "slide_id": "P04",
+      "prompt_file": "prompts/04-slide-two-column.md",
+      "image_file": "",
+      "backend": "none",
+      "aspect_ratio": "16:9",
+      "status": "pending",
+      "attempts": 0
+    },
+    {
+      "slide_id": "P05",
+      "prompt_file": "prompts/05-slide-quote.md",
+      "image_file": "",
+      "backend": "none",
+      "aspect_ratio": "16:9",
+      "status": "pending",
+      "attempts": 0
+    },
+    {
+      "slide_id": "P06",
+      "prompt_file": "prompts/06-slide-framework.md",
+      "image_file": "",
+      "backend": "none",
+      "aspect_ratio": "16:9",
+      "status": "pending",
+      "attempts": 0
+    },
+    {
+      "slide_id": "P07",
+      "prompt_file": "prompts/07-slide-timeline.md",
+      "image_file": "",
+      "backend": "none",
+      "aspect_ratio": "16:9",
+      "status": "pending",
+      "attempts": 0
+    },
+    {
+      "slide_id": "P08",
+      "prompt_file": "prompts/08-slide-comparison.md",
+      "image_file": "",
+      "backend": "none",
+      "aspect_ratio": "16:9",
+      "status": "pending",
+      "attempts": 0
+    },
+    {
+      "slide_id": "P09",
+      "prompt_file": "prompts/09-slide-image-text.md",
+      "image_file": "",
+      "backend": "none",
+      "aspect_ratio": "16:9",
+      "status": "pending",
+      "attempts": 0
+    },
+    {
+      "slide_id": "P10",
+      "prompt_file": "prompts/10-slide-closing.md",
+      "image_file": "",
+      "backend": "none",
+      "aspect_ratio": "16:9",
+      "status": "pending",
+      "attempts": 0
+    }
+  ]
+}

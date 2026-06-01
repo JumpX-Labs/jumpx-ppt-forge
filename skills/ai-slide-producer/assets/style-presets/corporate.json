@@ -1,0 +1,27 @@
+{
+  "style_name": "corporate",
+  "display_name": "Corporate",
+  "texture": "crisp digital surface, subtle structural depth",
+  "mood": "credible, composed, executive",
+  "typography": "modern geometric sans headings with professional readable body",
+  "density": "medium",
+  "color_palette": {
+    "primary_color": "#1E3A5F",
+    "accent_color": "#C9A227",
+    "background_color": "#FFFFFF",
+    "text_primary_color": "#1E3A5F",
+    "text_secondary_color": "#4A5568",
+    "border_color": "#D7DEE8"
+  },
+  "font_heading": "Inter, \"SF Pro Display\", \"Noto Sans SC\", sans-serif",
+  "font_body": "Inter, \"Source Sans Pro\", \"Noto Sans SC\", sans-serif",
+  "layout_bias": "grid",
+  "image_style_description": "polished corporate presentation visual, navy and gold palette, clean executive diagrams, restrained charts, professional outline iconography",
+  "negative_constraints": [
+    "no playful doodles",
+    "no heavy decorative effects",
+    "no informal illustration style",
+    "no crowded dashboards",
+    "no excessive accent colors"
+  ]
+}

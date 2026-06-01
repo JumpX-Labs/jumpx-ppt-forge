@@ -1,0 +1,27 @@
+{
+  "style_name": "editorial-magazine",
+  "display_name": "Editorial Magazine",
+  "texture": "premium paper, crisp ink, large editorial modules",
+  "mood": "confident, dramatic, publication-grade",
+  "typography": "oversized serif or condensed headline contrast with clean sans body",
+  "density": "medium",
+  "color_palette": {
+    "primary_color": "#0A0A0B",
+    "accent_color": "#E0472E",
+    "background_color": "#F1EFEA",
+    "text_primary_color": "#0A0A0B",
+    "text_secondary_color": "#5E5A52",
+    "border_color": "#D8D1C3"
+  },
+  "font_heading": "Georgia, \"Times New Roman\", \"Noto Serif SC\", serif",
+  "font_body": "Inter, \"Helvetica Neue\", \"Noto Sans SC\", sans-serif",
+  "layout_bias": "magazine",
+  "image_style_description": "premium magazine cover composition, bold editorial typography, warm paper texture, deep ink contrast, restrained color blocks, publication-grade art direction",
+  "negative_constraints": [
+    "no generic grey SaaS cards",
+    "no cheap decorative gradients",
+    "no crowded sticker collage",
+    "no soft business clipart",
+    "no tiny unreadable labels"
+  ]
+}

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="{{lang}}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{deck_title}}</title>
+  <style>
+{{style_css}}
+  </style>
+</head>
+<body>
+  <main id="deck" class="deck" aria-label="{{deck_title}}">
+{{slides}}
+  </main>
+  <nav class="slide-controls" aria-label="Slide controls">
+    <button type="button" class="nav-button" data-action="prev" aria-label="Previous slide">‹</button>
+    <div class="progress" aria-live="polite"><span id="current-slide">1</span><span>/</span><span id="total-slides">{{total_pages}}</span></div>
+    <button type="button" class="nav-button" data-action="next" aria-label="Next slide">›</button>
+  </nav>
+  <div id="index" class="slide-index" hidden>
+    <div class="index-grid" role="list">
+{{index_items}}
+    </div>
+  </div>
+  <script>
+  (() => {
+    const deck = document.getElementById("deck");
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const current = document.getElementById("current-slide");
+    const index = document.getElementById("index");
+    let active = 0;
+
+    function clamp(value) {
+      return Math.max(0, Math.min(slides.length - 1, value));
+    }
+
+    function go(next) {
+      active = clamp(next);
+      deck.style.transform = `translateX(${-active * 100}vw)`;
+      current.textContent = String(active + 1);
+      slides.forEach((slide, i) => {
+        slide.setAttribute("aria-hidden", i === active ? "false" : "true");
+      });
+    }
+
+    function toggleIndex(force) {
+      const show = typeof force === "boolean" ? force : index.hidden;
+      index.hidden = !show;
+    }
+
+    document.querySelector('[data-action="prev"]').addEventListener("click", () => go(active - 1));
+    document.querySelector('[data-action="next"]').addEventListener("click", () => go(active + 1));
+    document.querySelectorAll("[data-index-target]").forEach((button) => {
+      button.addEventListener("click", () => {
+        toggleIndex(false);
+        go(Number(button.dataset.indexTarget));
+      });
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowRight" || event.key === "PageDown" || event.key === " ") go(active + 1);
+      if (event.key === "ArrowLeft" || event.key === "PageUp") go(active - 1);
+      if (event.key === "Escape") toggleIndex();
+    });
+
+    let touchStart = null;
+    window.addEventListener("touchstart", (event) => {
+      touchStart = event.changedTouches[0].clientX;
+    }, { passive: true });
+    window.addEventListener("touchend", (event) => {
+      if (touchStart === null) return;
+      const delta = event.changedTouches[0].clientX - touchStart;
+      if (Math.abs(delta) > 48) go(active + (delta < 0 ? 1 : -1));
+      touchStart = null;
+    }, { passive: true });
+
+    go(0);
+  })();
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,26 @@
+{
+  "deck_title": "Swiss System Demo",
+  "audience": "Product reviewers",
+  "canvas_ratio": "16:9",
+  "canvas_pixels": {
+    "width": 1920,
+    "height": 1080
+  },
+  "style_name": "swiss-system",
+  "primary_color": "#0A0A0A",
+  "accent_color": "#002FA7",
+  "background_color": "#FAFAF8",
+  "text_primary_color": "#0A0A0A",
+  "text_secondary_color": "#737373",
+  "border_color": "#D4D4D2",
+  "font_heading": "\"Helvetica Neue\", Arial, \"Noto Sans SC\", sans-serif",
+  "font_body": "\"Helvetica Neue\", Arial, \"Noto Sans SC\", sans-serif",
+  "image_style": "Swiss international poster grid, off-white paper, black typography, one Klein blue accent, rigid alignment, geometric blocks, precise numbered information system",
+  "density": "medium-high",
+  "layout_bias": "grid",
+  "forbidden": [
+    "No gradients",
+    "No multiple accent colors",
+    "No rounded decorative cards"
+  ]
+}

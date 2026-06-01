@@ -1,0 +1,26 @@
+{
+  "deck_title": "AI Slide Producer 工作流",
+  "audience": "AI 课程学员",
+  "canvas_ratio": "16:9",
+  "canvas_pixels": {
+    "width": 1920,
+    "height": 1080
+  },
+  "style_name": "teaching-clean",
+  "primary_color": "#111827",
+  "accent_color": "#2563EB",
+  "background_color": "#F8FAFC",
+  "text_primary_color": "#111827",
+  "text_secondary_color": "#64748B",
+  "border_color": "#D7DEE8",
+  "font_heading": "Inter, \"Noto Sans SC\", sans-serif",
+  "font_body": "Inter, \"Noto Sans SC\", sans-serif",
+  "image_style": "clean educational diagram, simple geometric illustration, soft editorial screenshots",
+  "density": "medium-low",
+  "layout_bias": "grid",
+  "forbidden": [
+    "不把产品说成一键万能",
+    "不要让页面塞满文字"
+  ]
+}
+

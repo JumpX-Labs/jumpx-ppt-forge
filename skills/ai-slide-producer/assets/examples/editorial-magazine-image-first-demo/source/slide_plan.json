@@ -1,0 +1,140 @@
+{
+  "deck_meta": {
+    "deck_title": "Editorial Magazine Image-first Demo",
+    "audience": "Product reviewers / training-camp operators",
+    "total_pages": 5,
+    "style_name": "editorial-magazine",
+    "narrative_arc": "Image-First-Acceptance",
+    "output_mode": "image-first",
+    "canvas_ratio": "16:9",
+    "language": "en-US",
+    "created_at": "2026-05-21T15:00:00+02:00",
+    "source_outline": "source/outline.md"
+  },
+  "pages": [
+    {
+      "page_id": "P01",
+      "page_title": "Image-first means visible pages first",
+      "page_goal": "Establish image-first as the primary visual delivery path for publishing scenarios.",
+      "page_role_in_story": "cover",
+      "key_message": "Prompts are assets; images are the visible result.",
+      "on_slide_text": {
+        "headline": "Image-first means visible pages first",
+        "sub_headline": "Image-first acceptance sample",
+        "body": [],
+        "caption": "P01 / cover image"
+      },
+      "speaker_notes": "This sample uses repository placeholder PNGs so UAT can run without consuming API quota.",
+      "visual_direction": "dark editorial cover image with oversized serif type and warm accent block",
+      "layout_type": "cover",
+      "image_requirement": {
+        "needed": true,
+        "intent": "cover slide image",
+        "text_in_image_risk": "low",
+        "generated_image_path": "images/slide-01.png"
+      },
+      "page_rhythm": "anchor"
+    },
+    {
+      "page_id": "P02",
+      "page_title": "What image-first proves",
+      "page_goal": "Explain the difference between image-first and HTML-first delivery.",
+      "page_role_in_story": "context",
+      "key_message": "The deck can ship as ordered PNGs even before HTML becomes the main surface.",
+      "on_slide_text": {
+        "headline": "What image-first proves",
+        "body": [
+          "Images: slide-NN.png is the primary artifact",
+          "Prompts: every image keeps an editable prompt file",
+          "Manifest: each page has backend and status metadata"
+        ],
+        "caption": "P02 / image-first scope"
+      },
+      "speaker_notes": "Use this page to explain that image-first still preserves prompts and manifests for later regeneration.",
+      "visual_direction": "editorial two-column explainer image with image files and prompt archive motifs",
+      "layout_type": "two-column",
+      "image_requirement": {
+        "needed": true,
+        "intent": "explanatory slide image",
+        "text_in_image_risk": "medium",
+        "generated_image_path": "images/slide-02.png"
+      },
+      "page_rhythm": "dense"
+    },
+    {
+      "page_id": "P03",
+      "page_title": "Most pages ask for images",
+      "page_goal": "Show that the image-first sample marks most pages as image-needed.",
+      "page_role_in_story": "core",
+      "key_message": "For image-first, the default assumption is that pages should become raster slides.",
+      "on_slide_text": {
+        "headline": "Most pages ask for images",
+        "sub_headline": "At least four pages in this sample have needed=true.",
+        "body": [],
+        "caption": "P03 / big idea"
+      },
+      "speaker_notes": "This page is also image-needed, making the path explicit in the slide_plan.",
+      "visual_direction": "large editorial statement image with paper texture and image manifest pattern",
+      "layout_type": "big-idea",
+      "image_requirement": {
+        "needed": true,
+        "intent": "big idea slide image",
+        "text_in_image_risk": "low",
+        "generated_image_path": "images/slide-03.png"
+      },
+      "page_rhythm": "anchor"
+    },
+    {
+      "page_id": "P04",
+      "page_title": "Prompt archive contract",
+      "page_goal": "Show that prompts and manifest are part of the image-first delivery.",
+      "page_role_in_story": "framework",
+      "key_message": "An image-first deck is reusable when prompts, images, and manifest stay aligned.",
+      "on_slide_text": {
+        "headline": "Prompt archive contract",
+        "body": [
+          "Prompt: one markdown file per page",
+          "Image: one raster output per page",
+          "Manifest: status and backend metadata"
+        ],
+        "caption": "P04 / prompt archive"
+      },
+      "speaker_notes": "This page maps to the required prompts/ and images_manifest.json files in the sample.",
+      "visual_direction": "three editorial modules showing prompt, image, manifest as linked assets",
+      "layout_type": "framework",
+      "image_requirement": {
+        "needed": true,
+        "intent": "framework slide image",
+        "text_in_image_risk": "medium",
+        "generated_image_path": "images/slide-04.png"
+      },
+      "page_rhythm": "dense"
+    },
+    {
+      "page_id": "P05",
+      "page_title": "Run one page before the whole deck",
+      "page_goal": "Close with the safe real-backend smoke path.",
+      "page_role_in_story": "takeaway",
+      "key_message": "For real APIs, test --only P01 before spending a full deck budget.",
+      "on_slide_text": {
+        "headline": "Run one page before the whole deck",
+        "body": [
+          "Dry-run: inspect manifest and target paths",
+          "Smoke: generate_images.py --only P01",
+          "Full run: expect roughly 60-90 seconds per page"
+        ],
+        "caption": "P05 / close"
+      },
+      "speaker_notes": "Close by reminding UAT testers not to submit full production batches before a single-page smoke passes.",
+      "visual_direction": "closing editorial image with checklist and timing note",
+      "layout_type": "closing",
+      "image_requirement": {
+        "needed": true,
+        "intent": "closing slide image",
+        "text_in_image_risk": "medium",
+        "generated_image_path": "images/slide-05.png"
+      },
+      "page_rhythm": "anchor"
+    }
+  ]
+}
