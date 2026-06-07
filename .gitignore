@@ -20,6 +20,7 @@ dist/
 # Generated slide projects (user output)
 slide-deck/
 projects/
+runs/
 
 # Local API-generated images (regression uses manifest; do not commit)
 assets/examples/teaching-clean-demo/images/
