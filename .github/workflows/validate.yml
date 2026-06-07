@@ -1,0 +1,46 @@
+name: validate
+
+# 在 PR / push 上跑确定性校验（纯 Python stdlib，无需安装依赖）。
+# 这把 skill 的"机器门禁"变成 CI 红线：结构 / 外链 / 页序·layout 一致 / 颜色漂移 / 文本预算。
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Scripts compile (no syntax errors)
+        run: |
+          python -m compileall -q scripts
+
+      - name: Validate example decks (HTML + slide_plan)
+        run: |
+          set -e
+          shopt -s nullglob
+          found=0
+          for deck in assets/examples/*/; do
+            html="$deck/index.html"
+            lock="$deck/source/style_lock.json"
+            plan="$deck/source/slide_plan.json"
+            [ -f "$html" ] || continue
+            found=1
+            echo "::group::$deck"
+            args="$html"
+            [ -f "$lock" ] && args="$args --style-lock $lock"
+            [ -f "$plan" ] && args="$args --slide-plan $plan"
+            python scripts/validate_html.py $args
+            [ -f "$plan" ] && python scripts/validate_slide_plan.py "$plan" || true
+            [ -f "$lock" ] && python scripts/validate_context_lock.py "$lock" || true
+            echo "::endgroup::"
+          done
+          if [ "$found" = "0" ]; then echo "no example decks with index.html found (skipping)"; fi

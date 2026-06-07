@@ -1,0 +1,49 @@
+name: 🐞 Bug 反馈
+description: 报告一个问题（生成跑偏、校验报错、产物异常…）
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈！请尽量给出可复现信息。Skill 用法见 [`SKILL.md`](../../SKILL.md)。
+  - type: textarea
+    id: what
+    attributes:
+      label: 发生了什么
+      description: 期望 vs 实际
+      placeholder: 我让它…，但它…
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: 复现步骤
+      placeholder: |
+        1. 触发语 / 输入资料
+        2. 在哪个 Step / Gate 出问题
+        3. 跑了哪个脚本、输出是什么
+    validations:
+      required: true
+  - type: dropdown
+    id: stage
+    attributes:
+      label: 出问题的环节
+      options:
+        - Intake / 大纲
+        - Slide Plan / 内容
+        - Design / Style Lock
+        - Render（HTML 直写）
+        - Render（AI 配图）
+        - QA / 校验脚本
+        - 导出 / 交付
+        - 其他
+  - type: input
+    id: env
+    attributes:
+      label: 环境
+      placeholder: Agent（Claude Code / Cursor / Codex…）、skill 版本/tag、Python 版本
+  - type: textarea
+    id: logs
+    attributes:
+      label: 相关日志 / 校验输出
+      render: shell

@@ -1,0 +1,31 @@
+name: 💡 功能 / 改进建议
+description: 提一个新能力、新风格、或对管线/校验的改进
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 想解决什么问题
+      description: 先说痛点，再说方案
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: 你设想的做法
+      placeholder: 改哪一层？SKILL / references / schemas / scripts / assets
+  - type: dropdown
+    id: area
+    attributes:
+      label: 影响范围
+      options:
+        - 管线 / 门禁（SKILL.md）
+        - 角色行为（references/）
+        - 契约（schemas/）
+        - 校验 / 门禁脚本（scripts/）
+        - 视觉风格 / preset（assets/）
+        - 文档（docs/）
+  - type: textarea
+    id: alt
+    attributes:
+      label: 替代方案 / 备注

@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 🖥️ Web 操作台 jumpx-ppt-studio
+    url: https://github.com/JumpX-Labs/jumpx-ppt-studio
+    about: 想要带界面、能预览/导出/演示的版本？去这里。
+  - name: 📖 怎么用（SKILL.md）
+    url: https://github.com/JumpX-Labs/jumpx-ppt-forge/blob/main/SKILL.md
+    about: 触发词、九步管线、门禁、铁律。
+  - name: 🎓 JumpX AI 实战营
+    url: https://github.com/JumpX-Labs
+    about: 想学会"用 Agent 把想法做成真产品"。
