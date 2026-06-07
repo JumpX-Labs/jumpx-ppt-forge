@@ -1,9 +1,34 @@
-# AI Slide Producer
+<!-- ★ LOGO（留给 Peng）：放一个字标/Logo，居中。示意：
+<p align="center"><img src="docs/logo.svg" alt="AI Slide Producer" width="320"></p> -->
 
-> **把一句话、一份资料、一个想法，变成一套能讲、能放映、能改的专业幻灯片。**
-> 一个可装进任意 Agent（Claude / Cursor / 自建 Agent）的 Skill —— 不是又一个 PPT 工具，而是给你的 Agent 装上一个"会做课、会汇报、会发布"的大脑。
+<h1 align="center">AI Slide Producer</h1>
 
-<!-- AI Slide Producer — turn a topic or a document into a designer-grade, presentable, editable slide deck. A portable Agent Skill. -->
+<p align="center"><b>一句话 · 一份资料 · 一个想法 → 能讲、能放映、能改的专业幻灯。</b></p>
+<p align="center">
+  一个能装进<b>任意 Agent</b>（Claude / Cursor / Codex / 自建）的开源 <b>Skill</b>——<br/>
+  不是又一个 PPT 工具，而是给你的 Agent 装上一个"会做课、会汇报、会发布"的大脑。
+</p>
+<p align="center"><i>Turn a topic — or a document — into a designer-grade, presentable, editable slide deck. A portable Agent Skill.</i></p>
+
+<p align="center">
+  <img alt="version" src="https://img.shields.io/badge/skill-v1.1.0-2563EB">
+  <img alt="Agent Skill" src="https://img.shields.io/badge/Agent_Skill-ready-16a34a">
+  <img alt="works with" src="https://img.shields.io/badge/works_with-Claude_·_Cursor_·_Codex-111827">
+  <a href="https://github.com/JumpX-Labs/jumpx-ppt-studio"><img alt="Web Studio" src="https://img.shields.io/badge/Web_Studio-jumpx--ppt--studio-1f6feb?logo=github"></a>
+</p>
+
+<p align="center">
+  <a href="SKILL.md"><b>30 秒上手</b></a> ·
+  <a href="#它能产出什么">能产出什么</a> ·
+  <a href="docs/WHY-IT-WORKS.md">为什么有效</a> ·
+  <a href="docs/ARCHITECTURE.md">架构</a> ·
+  <a href="https://github.com/JumpX-Labs/jumpx-ppt-studio">Web Studio</a> ·
+  <a href="#来自-jumpx-实战营">训练营</a>
+</p>
+
+<!-- ★ HERO（留给 Peng）：首屏甩一张"成品长这样"——一张漂亮成品幻灯的三连图（封面+内容+数据页），
+     或一段 "主题 → deck" 的 GIF。这是最高杠杆的一张图，建议宽 ~860px。示意：
+<p align="center"><img src="docs/hero.png" alt="AI Slide Producer 成品示例" width="860"></p> -->
 
 ---
 
@@ -64,6 +89,16 @@
 
 `teaching-clean`（教学清爽，默认）· `editorial-magazine`（杂志感）· `swiss-system`（瑞士网格）· `blueprint`（蓝图）· `sketch-notes`（手绘笔记）· `corporate`（商务）· `creator-social`（创作者/社媒）
 
+<!-- ★ 风格画廊（留给 Peng）：这是"显得大"的关键一面墙——把真·模型产出的每套风格各放一张。
+     现成图就在 studio 仓库：jumpx-ppt-studio/backend/preset_previews/<style>-1.png（7 风格 × 2 张）。
+     建议把它们复制进本仓库 docs/presets/ 后，用下面这张表（把注释去掉、填好图）：
+| teaching-clean | editorial-magazine | swiss-system | blueprint |
+|:--:|:--:|:--:|:--:|
+| <img src="docs/presets/teaching-clean.png" width="210"> | <img src="docs/presets/editorial-magazine.png" width="210"> | <img src="docs/presets/swiss-system.png" width="210"> | <img src="docs/presets/blueprint.png" width="210"> |
+| **sketch-notes** | **corporate** | **creator-social** | |
+| <img src="docs/presets/sketch-notes.png" width="210"> | <img src="docs/presets/corporate.png" width="210"> | <img src="docs/presets/creator-social.png" width="210"> | |
+-->
+
 每套含语义档（`assets/style-presets/*.json`）+ 落地 CSS（`assets/styles/*.css`）。风格也可由参考图导入或自定义——视觉是设计 token，模型据此自由发挥。
 
 ---
@@ -97,6 +132,17 @@ docs/                 # 给人看：架构 / 为什么有效（非 Agent 运行�
 
 ---
 
+## 来自 JumpX 实战营
+
+这个 Skill 不是 demo，是 **JumpX AI 实战营**里"用 Agent 造真产品"的一块教学成果——配套的 Web 操作台 [`jumpx-ppt-studio`](https://github.com/JumpX-Labs/jumpx-ppt-studio) 把它跑成了一个能用的应用。
+
+- 🧩 **想直接用** → 把本仓库当 Skill 装进你的 Agent，从 [`SKILL.md`](SKILL.md) 起手。
+- 🖥️ **想要带界面的版本** → [`jumpx-ppt-studio`](https://github.com/JumpX-Labs/jumpx-ppt-studio)。
+- 🎓 **想学会"怎么把一个 AI 想法做成真产品"** → 来 JumpX AI 实战营。<!-- ★ 训练营报名链接（留给 Peng）：把这句换成带链接的 CTA。 -->
+- ⭐ 觉得有用就点个 Star —— 这是对开源最实在的鼓励。
+
+---
+
 ## 许可 / 版本
 
-见 `SKILL.md` 顶部版本声明。发布即用版本建议以 git tag 锚定（如 `v0.2.0`）。
+见 [`SKILL.md`](SKILL.md) 顶部版本声明；发布版本以 git tag 锚定（当前稳定：[`v1.1.0`](https://github.com/JumpX-Labs/jumpx-ppt-forge/releases)）。
