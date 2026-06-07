@@ -296,12 +296,15 @@ Agent 可读任意中间产物判断当前进度并决定下一步动作。
 
 **做什么**：
 
+- **测量式视觉门禁（先跑，机器权威）**：`python3 scripts/validate_html.py <project>/index.html --style-lock source/style_lock.json --slide-plan source/slide_plan.json --json`。它确定性测量**结构 / 外链 / 页序与 layout 一致 / 颜色漂移 / 文本预算**——这些项以机器结论为准，**禁止再凭肉眼对它们返工**。
 - **Reviewer 内容复检**：主线、每页独立作用、标题表达力、事实风险。
-- **Style Guard 视觉检查**（[`references/10-style-guard.md`](references/10-style-guard.md)）：颜色 / 字体 / 版式漂移、文本溢出、视觉拥挤、图片契约。
+- **Style Guard 视觉检查**（[`references/10-style-guard.md`](references/10-style-guard.md)）：在机器门禁通过后，模型只判 **Preset 美学观感**；真实**像素溢出 / 对比度 / 断图**是 Tier-1 渲染检查（壳里的无头浏览器，探测到才跑，skill 本体零依赖不强求）。
 - **Producer 交付检查**：HTML 可打开、图片齐全、文件命名规范、manifest 存在。
 - 输出 `qa_report.md`。
 
-**⛔ Gate 5 Style Compliance**：严重漂移必须返工（按 §13 regeneration 流程局部重生）。
+> **收敛铁律（治"QA 反复出错"）**：`regenerate <PNN>` 后**只重跑上面那条 `validate_html.py --json`**；`failed:false` 即停。只有 `errors` 非空才返工；`warnings` 不阻塞。**不得用主观再判把已通过的页拖回返工循环。**
+
+**⛔ Gate 5 Style Compliance**：`validate_html.py` 报 `errors`（外链 / 页序 / 结构 / 占位符）必须返工（按 §13 regeneration 流程局部重生）；纯 `warnings` 不阻塞交付。
 
 ---
 
@@ -364,4 +367,4 @@ skills/ai-slide-producer/
 
 ---
 
-**Skill 版本**：v1.0
+**Skill 版本**：v1.1.0 — Step 8 QA 升级为确定性测量门禁（`validate_html.py`：外链 / 页序·layout 一致 / 颜色漂移 / 文本预算 + `--json`/`--strict`），并定下"机器判定即权威 + 收敛规则"，根治 QA 反复返工。
