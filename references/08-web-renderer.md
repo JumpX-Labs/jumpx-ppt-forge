@@ -37,7 +37,7 @@
 1. **结构**：`<main id="deck" class="deck">` 内，**每页一个** `<section class="slide" data-page-id="P01" data-layout="...">`（P01、P02… 按序）；slide 数 = `deck_meta.total_pages`。
 2. **布局**：`.deck{ position:fixed; inset:0; display:flex; flex-wrap:nowrap; width:(N*100)vw; height:100vh; transition:transform .4s ease }`；`.slide{ flex:0 0 100vw; width:100vw; height:100vh; overflow:hidden; position:relative }`。
 3. **翻页**：内置 JS——`←/→/空格`、底部上一页/下一页按钮、ESC 缩略图索引、移动端滑动；切页统一用 `deck.style.transform = 'translateX(-' + i*100 + 'vw)'`。控件放 `<nav class="slide-controls">`，缩略图容器 `id="index" class="slide-index"`（这两个 class 是导出/演示约定，会被外部隐藏/驱动）。
-4. **自包含**：所有 CSS/JS **内联**；不引外部资源；中文字体兜底 `"Noto Sans SC","PingFang SC",sans-serif`。
+4. **自包含**：所有 CSS/JS **内联**；不引外部资源（确定性靠渲染环境装好字体，不靠外链）。中文字体兜底用**跨平台全栈**，保证 deck 离开作者机器（Win / 旧 Mac / 安卓）仍有合理 CJK 字形：`"Noto Sans SC","Source Han Sans SC","PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif`。`style_lock.font_heading/font_body` 必须以这套兜底收尾。
 5. **不溢出**：每页内容必须一屏放下（1280×720 基准），宁可精炼，遵守 `style_lock.density`。
 
 ---
