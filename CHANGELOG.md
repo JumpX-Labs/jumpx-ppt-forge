@@ -4,6 +4,12 @@
 
 ## [Unreleased]
 
+### Added
+- **08 视觉手艺铁律**：给"模型直写 HTML"补上带数字与反例的硬约束（字号底线 / 单一焦点 1.6× / 行长 / 8 倍数间距 / tabular-nums / 反默认守门 / WRONG→RIGHT），与 05-writer 的内容约束同强度——直接抬高成品观感下限。
+
+### Fixed
+- **反廉价约束的"断线"**：preset 的 `negative_constraints`（禁渐变糊/假 3D 剪贴画/小字/塞满）此前**到不了 HTML 渲染器**。现要求 07-designer **必须**把它并入 `style_lock.forbidden[]`（08 唯一视觉真相源），使整套反约束在主路径上真正生效。
+
 ### Changed
 - 拓宽 CJK 字体兜底栈（+ Microsoft YaHei / Hiragino Sans GB / Source Han Sans），裸 HTML 在 Win/旧 Mac/安卓上也有合理字形。
 - README 升级为发布级（头部 / 徽章 / 导航 / 风格画廊位 / 训练营 CTA）。

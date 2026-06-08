@@ -30,7 +30,8 @@
 
 - `style_name` 必须等于 `slide_plan.deck_meta.style_name`。
 - 颜色、字体、密度、图像风格优先来自 `assets/style-presets/<style_name>.json`。
-- `forbidden[]` 合并 Context Pack 的 Forbidden Zones 和用户硬约束。
+- **`forbidden[]` 必须并入**三处来源：① preset 的 `negative_constraints`（**必填，不是"可选追加"**）② Context Pack 的 Forbidden Zones ③ 用户硬约束。
+  > ⚠️ 这条是硬规则：preset 里写的"反廉价感"约束（如 `no decorative gradients as the main visual`、`no faux 3D business clipart`、`no unreadable small labels`、`no crowded text blocks`）**只有进了 `forbidden[]` 才会被渲染器（08）看到**——`style_lock` 是 08 唯一的视觉真相源，08 不读 preset。漏掉这步＝整套反约束在 HTML 主路径上失效。
 - Gate 4 通过后，`style_lock.json` 只读；如用户改风格，走 regenerate 流程。
 
 ---
