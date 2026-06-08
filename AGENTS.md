@@ -1,6 +1,6 @@
 # AGENTS.md
 
-本仓库是一个 **Agent Skill**（AI Slide Producer）。它的"入口大脑"是 [`SKILL.md`](SKILL.md)——触发词、九步管线、人工门禁、铁律、状态机全在那里。
+本仓库是一个 **Agent Skill**（AI PPT Forge）。它的"入口大脑"是 [`SKILL.md`](SKILL.md)——触发词、九步管线、人工门禁、铁律、状态机全在那里。
 
 **给任何 coding agent（Claude Code / Cursor / Codex / 自建）的指令：**
 

@@ -7,7 +7,7 @@ visible_text:
   sub_headline: "一条带 Gate、Style Lock 和交付检查的工作流"
   body:
     []
-visual_composition: "Create a cover slide image for this purpose: 建立主题和价值承诺. Main message: AI Slide Producer 把一次性请求变成可复用的生产工作流。. Visual direction: clean opening slide with teaching-oriented hierarchy. Image intent: none. Use the deck style: clean educational diagram, simple geometric illustration, soft editorial screenshots."
+visual_composition: "Create a cover slide image for this purpose: 建立主题和价值承诺. Main message: AI PPT Forge 把一次性请求变成可复用的生产工作流。. Visual direction: clean opening slide with teaching-oriented hierarchy. Image intent: none. Use the deck style: clean educational diagram, simple geometric illustration, soft editorial screenshots."
 style_preset: "teaching-clean"
 style_lock_ref: "source/style_lock.json"
 negative_constraints:
@@ -39,7 +39,7 @@ generated_image_path: "images/slide-01.png"
 
 ## Composition
 
-Create a cover slide image for this purpose: 建立主题和价值承诺. Main message: AI Slide Producer 把一次性请求变成可复用的生产工作流。. Visual direction: clean opening slide with teaching-oriented hierarchy. Image intent: none. Use the deck style: clean educational diagram, simple geometric illustration, soft editorial screenshots.
+Create a cover slide image for this purpose: 建立主题和价值承诺. Main message: AI PPT Forge 把一次性请求变成可复用的生产工作流。. Visual direction: clean opening slide with teaching-oriented hierarchy. Image intent: none. Use the deck style: clean educational diagram, simple geometric illustration, soft editorial screenshots.
 
 ## Visual Hierarchy
 

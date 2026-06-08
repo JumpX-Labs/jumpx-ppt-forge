@@ -1,6 +1,6 @@
 # Examples
 
-本目录存放 **AI Slide Producer** 的固定回归样例。所有路径均相对于 `skills/ai-slide-producer/`。
+本目录存放 **AI PPT Forge** 的固定回归样例。所有路径均相对于 `skills/ai-slide-producer/`。
 
 ---
 
@@ -14,6 +14,7 @@
 | [`editorial-magazine-mixed-demo/`](editorial-magazine-mixed-demo/) | 8 | **Mixed**：HTML 嵌入本地 `images/slide-NN.png` |
 | [`editorial-magazine-image-first-demo/`](editorial-magazine-image-first-demo/) | 5 | **Image-first**：prompts + manifest + 占位/真图 |
 | [`swiss-system-demo/`](swiss-system-demo/) | 4 | **Swiss preset**：网格、高密度结构 |
+| [`spacex-ipo/`](spacex-ipo/) | 6 | **观点型 editorial（README Case 01）**：`editorial-magazine` 观点弧 + 数字/词锚 + 深色金句页，新版 craft rules 实战，全套九步中间产物 |
 
 **区别**：demo 证明「管线能跑」；gallery 证明「十种 layout 片段都能渲染」。改 `layouts/`、`styles/` 或 `build_html.py` 后优先跑 gallery。
 

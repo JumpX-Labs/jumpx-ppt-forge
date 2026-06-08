@@ -9,7 +9,7 @@ description: >
   pitching / publishing.
 ---
 
-# AI Slide Producer
+# AI PPT Forge
 
 > 一句话定义：把粗糙输入变成**可见 Slides 结果**的 AI 生产系统——Image 与 HTML 双输出，每一步都有人工门禁，每页 Prompt 都是可复用资产。
 

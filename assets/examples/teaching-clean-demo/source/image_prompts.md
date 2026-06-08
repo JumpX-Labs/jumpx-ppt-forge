@@ -1,6 +1,6 @@
 # Image Prompts
 
-**Deck**: AI Slide Producer 工作流
+**Deck**: AI PPT Forge 工作流
 **Generated**: 2026-05-21T12:05:39+00:00
 
 | Slide | Prompt | Target Image | Status |

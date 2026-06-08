@@ -3,7 +3,7 @@
 **Status**: confirmed
 
 ## Topic
-AI Slide Producer 的工作流介绍
+AI PPT Forge 的工作流介绍
 
 ## Use Case
 教学演示

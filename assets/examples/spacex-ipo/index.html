@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=1280, height=720" />
+<title>上市的，不是火箭</title>
+<style>
+  /* ===== style_lock: editorial-magazine ===== */
+  :root{
+    --bg:#F1EFEA; --ink:#0A0A0B; --muted:#5E5A52; --line:#D8D1C3;
+    --accent:#E0472E; --paper:#F1EFEA;
+    --dark:#0A0A0B; --on-dark:#F1EFEA; --on-dark-muted:#A8A092;
+    --serif:Georgia,"Times New Roman","Noto Serif SC","Songti SC",serif;
+    --sans:Inter,"Helvetica Neue","Noto Sans SC","PingFang SC",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:1280px;height:720px;overflow:hidden;background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased}
+  .deck{position:fixed;inset:0;display:flex;flex-wrap:nowrap;width:600vw;height:100vh;transition:transform .45s cubic-bezier(.4,0,.2,1)}
+  .slide{flex:0 0 100vw;width:100vw;height:100vh;overflow:hidden;position:relative;background:var(--paper)}
+  .pad{position:absolute;inset:0;padding:72px 88px;display:flex;flex-direction:column}
+  .num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+  .kicker{font-size:14px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent)}
+  .pageno{position:absolute;right:40px;bottom:32px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.08em}
+  .dark{background:var(--dark);color:var(--on-dark)}
+  .dark .kicker{color:var(--accent)}
+  .serif{font-family:var(--serif)}
+  .accent{color:var(--accent)}
+
+  /* P01 — cover (dark) */
+  #s1 .pad{justify-content:center}
+  #s1 .hero{font-family:var(--serif);font-size:104px;line-height:1.08;font-weight:700;letter-spacing:-.01em;margin-top:24px}
+  #s1 .sub{font-size:22px;color:var(--on-dark-muted);margin-top:34px;max-width:680px;line-height:1.65;font-weight:300}
+  #s1 .dateline{position:absolute;left:88px;bottom:64px;font-size:14px;color:var(--on-dark-muted);letter-spacing:.06em;display:flex;align-items:center;gap:14px}
+  #s1 .dateline .bar{width:40px;height:2px;background:var(--accent)}
+
+  /* P02 — comparison (paper) */
+  #s2 .pad{justify-content:center}
+  #s2 .head{font-family:var(--serif);font-size:52px;font-weight:700;line-height:1.18;letter-spacing:-.01em;margin-top:18px;max-width:920px}
+  #s2 .cmp{display:flex;margin-top:56px;gap:0}
+  #s2 .col{flex:1;padding:0 48px}
+  #s2 .col.right{border-left:2px solid var(--accent)}
+  #s2 .col .lab{font-family:var(--serif);font-size:30px;font-weight:700;letter-spacing:.02em}
+  #s2 .col.right .lab{color:var(--accent)}
+  #s2 .col .tags{margin-top:22px;display:flex;flex-direction:column;gap:14px}
+  #s2 .col .t{font-size:21px;color:var(--ink);font-weight:500}
+  #s2 .col .t .d{color:var(--muted);font-weight:400;font-size:17px}
+  #s2 .col.left .t{color:var(--muted)}
+
+  /* P03 — big-idea / number anchor (paper) */
+  #s3 .pad{flex-direction:row;align-items:center;gap:64px;padding:72px 88px}
+  #s3 .left{flex:0 0 470px}
+  #s3 .left .anchor{font-family:var(--serif);font-size:128px;font-weight:700;color:var(--accent);line-height:.98;letter-spacing:-.02em;margin-top:14px}
+  #s3 .left .romlab{font-size:14px;letter-spacing:.22em;color:var(--muted);margin-top:18px;text-transform:uppercase}
+  #s3 .right{flex:1;border-left:1px solid var(--line);padding-left:56px;display:flex;flex-direction:column;gap:30px}
+  #s3 .ledger .r-lab{font-size:15px;letter-spacing:.04em;color:var(--muted);margin-bottom:8px}
+  #s3 .ledger .r-main{font-family:var(--serif);font-size:30px;font-weight:700;line-height:1.25;max-width:480px}
+  #s3 .ledger .r-main em{font-style:normal;color:var(--accent)}
+  #s3 .cover-net{font-size:19px;color:var(--ink);max-width:470px;line-height:1.55}
+  #s3 .cover-net b{font-size:28px;font-family:var(--serif);color:var(--ink)}
+  #s3 .foot{position:absolute;left:88px;bottom:30px;font-size:11px;color:var(--muted);letter-spacing:.03em}
+
+  /* P04 — framework / 4-step flow (paper) */
+  #s4 .pad{justify-content:center}
+  #s4 .head{font-family:var(--serif);font-size:42px;font-weight:700;line-height:1.2;max-width:900px;letter-spacing:-.01em}
+  #s4 .flow{display:flex;align-items:flex-start;margin-top:64px;gap:0}
+  #s4 .step{flex:1;padding-right:18px}
+  #s4 .step .n{font-family:var(--serif);font-size:44px;font-weight:700;color:var(--accent);line-height:1}
+  #s4 .step .lab{font-size:19px;font-weight:600;color:var(--ink);margin-top:16px;line-height:1.4;max-width:200px}
+  #s4 .arrow{flex:0 0 40px;align-self:flex-start;margin-top:14px;color:var(--line);font-size:30px;text-align:center}
+  #s4 .punch{margin-top:60px;font-family:var(--serif);font-size:26px;font-weight:700;color:var(--ink)}
+  #s4 .punch .accent{color:var(--accent)}
+
+  /* P05 — quote (dark) */
+  #s5 .pad{justify-content:center}
+  #s5 .q{font-family:var(--serif);font-size:66px;font-weight:700;line-height:1.22;letter-spacing:-.01em;max-width:1000px;margin-top:22px}
+  #s5 .rows{margin-top:48px;display:flex;flex-direction:column;gap:14px;max-width:880px}
+  #s5 .row{display:flex;gap:18px;align-items:baseline;font-size:20px;color:var(--on-dark-muted)}
+  #s5 .row .k{flex:0 0 64px;color:var(--accent);font-weight:700;font-size:16px;letter-spacing:.04em}
+  #s5 .row b{color:var(--on-dark);font-weight:600}
+
+  /* P06 — closing (paper) */
+  #s6 .pad{justify-content:center}
+  #s6 .head{font-family:var(--serif);font-size:42px;font-weight:700;line-height:1.2;max-width:900px;letter-spacing:-.01em}
+  #s6 .pts{margin-top:44px;display:flex;flex-direction:column;gap:20px}
+  #s6 .pt{display:flex;gap:22px;align-items:baseline}
+  #s6 .pt .n{font-family:var(--serif);font-size:28px;font-weight:700;color:var(--accent);flex:0 0 36px}
+  #s6 .pt .tx{font-size:22px;color:var(--ink);font-weight:600;line-height:1.4}
+  #s6 .pt .tx .d{display:block;font-size:17px;color:var(--muted);font-weight:400;margin-top:3px}
+  #s6 .memory{margin-top:52px;padding-top:30px;border-top:2px solid var(--accent);font-family:var(--serif);font-size:36px;font-weight:700;line-height:1.25}
+  #s6 .memory .accent{color:var(--accent)}
+</style>
+</head>
+<body>
+  <main id="deck" class="deck">
+
+    <!-- P01 -->
+    <section class="slide dark" id="s1" data-page-id="P01" data-layout="cover">
+      <div class="pad">
+        <div class="kicker">SpaceX · 史上最大 IPO</div>
+        <h1 class="hero">上市的，<br/>不是<span class="accent">火箭</span>。</h1>
+        <p class="sub">下周，人类第一次把太空搬上公开市场——但真正被定价的东西，藏在火箭背后。</p>
+      </div>
+      <div class="dateline"><span class="bar"></span><span>下周上市 · 史上最大规模 IPO</span></div>
+      <div class="pageno num">01 / 06</div>
+    </section>
+
+    <!-- P02 -->
+    <section class="slide" id="s2" data-page-id="P02" data-layout="comparison">
+      <div class="pad">
+        <div class="kicker">重新定义这场 IPO</div>
+        <h2 class="head">你以为买的是发射台。<br/>其实买的是<span class="accent">收费站</span>。</h2>
+        <div class="cmp">
+          <div class="col left">
+            <div class="lab">火箭</div>
+            <div class="tags">
+              <div class="t">一次性 <span class="d">— 发一次，烧一次钱</span></div>
+              <div class="t">成本中心 <span class="d">— 很贵、很猛、很性感</span></div>
+              <div class="t">护城河 <span class="d">— 是壁垒，不是收银台</span></div>
+            </div>
+          </div>
+          <div class="col right">
+            <div class="lab">STARLINK</div>
+            <div class="tags">
+              <div class="t">经常性 <span class="d">— 用户月月付费</span></div>
+              <div class="t">收入引擎 <span class="d">— 真正往账上打钱</span></div>
+              <div class="t">现金流 <span class="d">— 铺在天上的收费网络</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="pageno num">02 / 06</div>
+    </section>
+
+    <!-- P03 -->
+    <section class="slide" id="s3" data-page-id="P03" data-layout="big-idea">
+      <div class="pad">
+        <div class="left">
+          <div class="kicker">重点 · 真正的引擎</div>
+          <div class="anchor serif">经常性</div>
+          <div class="romlab">Recurring Revenue</div>
+        </div>
+        <div class="right">
+          <div class="ledger">
+            <div class="r-lab">火箭收入</div>
+            <div class="r-main">发一次 · 收一次 —— <em>一次性，封顶</em></div>
+          </div>
+          <div class="ledger">
+            <div class="r-lab">Starlink 收入</div>
+            <div class="r-main">发一次 · 月月收 · 年年收 —— <em>经常性，复利</em></div>
+          </div>
+          <p class="cover-net">一张覆盖 <b class="num">100+</b> 国家的收费网络——卫星一旦上天，收入就像复利一样滚。</p>
+        </div>
+      </div>
+      <div class="foot">注：营收形状对比为商业模式逻辑示意，非具体财报数据。</div>
+      <div class="pageno num">03 / 06</div>
+    </section>
+
+    <!-- P04 -->
+    <section class="slide" id="s4" data-page-id="P04" data-layout="framework">
+      <div class="pad">
+        <div class="kicker">为什么别人抄不动</div>
+        <h2 class="head">垂直整合：一家公司，闭环吃下整条链。</h2>
+        <div class="flow">
+          <div class="step"><div class="n num">01</div><div class="lab">自己造火箭</div></div>
+          <div class="arrow">→</div>
+          <div class="step"><div class="n num">02</div><div class="lab">把发射成本打到地板</div></div>
+          <div class="arrow">→</div>
+          <div class="step"><div class="n num">03</div><div class="lab">批量铺星座</div></div>
+          <div class="arrow">→</div>
+          <div class="step"><div class="n num">04</div><div class="lab">向全球收月费</div></div>
+        </div>
+        <div class="punch">省下的每一块发射成本 <span class="accent">→</span> 最后都变成订阅利润。</div>
+      </div>
+      <div class="pageno num">04 / 06</div>
+    </section>
+
+    <!-- P05 -->
+    <section class="slide dark" id="s5" data-page-id="P05" data-layout="quote">
+      <div class="pad">
+        <div class="kicker">这才是历史意义</div>
+        <blockquote class="q">太空，第一次作为一门<span class="accent">"现金流生意"</span>，被公开市场定价。</blockquote>
+        <div class="rows">
+          <div class="row"><span class="k">过去</span><span>政府合同 + 持续烧钱，普通人买不到、不敢买</span></div>
+          <div class="row"><span class="k">现在</span><span><b>可估值、可持有的资产类别</b>——估值锚从"航天承包商"变成"全球基础设施平台"</span></div>
+        </div>
+      </div>
+      <div class="pageno num" style="color:var(--on-dark-muted)">05 / 06</div>
+    </section>
+
+    <!-- P06 -->
+    <section class="slide" id="s6" data-page-id="P06" data-layout="closing">
+      <div class="pad">
+        <div class="kicker">所以，别盯着发射直播</div>
+        <h2 class="head">看这家公司，看三件事——不是火箭。</h2>
+        <div class="pts">
+          <div class="pt"><span class="n num">01</span><span class="tx">ARPU 与留存<span class="d">这座收费站赚不赚钱、用户走不走</span></span></div>
+          <div class="pt"><span class="n num">02</span><span class="tx">星座覆盖与容量<span class="d">这张网络的护城河有多深</span></span></div>
+          <div class="pt"><span class="n num">03</span><span class="tx">估值锚<span class="d">按基础设施 / 电信平台估，别拿航天股的尺子量</span></span></div>
+        </div>
+        <div class="memory">火箭负责上头条，<span class="accent">Starlink 负责上财报</span>。</div>
+      </div>
+      <div class="pageno num">06 / 06</div>
+    </section>
+
+  </main>
+
+  <nav class="slide-controls" hidden></nav>
+  <div id="index" class="slide-index" hidden></div>
+  <script>
+    let i=0;
+    const deck=document.getElementById('deck');
+    const n=document.querySelectorAll('.slide').length;
+    function go(k){i=Math.max(0,Math.min(n-1,k));deck.style.transform='translateX(-'+i*100+'vw)';}
+    addEventListener('keydown',e=>{
+      if(e.key==='ArrowRight'||e.key===' ')go(i+1);
+      if(e.key==='ArrowLeft')go(i-1);
+      if(e.key==='Home')go(0);
+      if(e.key==='End')go(n-1);
+    });
+    // touch swipe
+    let x0=null;
+    addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+    addEventListener('touchend',e=>{if(x0===null)return;const dx=e.changedTouches[0].clientX-x0;if(Math.abs(dx)>40)go(i+(dx<0?1:-1));x0=null;},{passive:true});
+  </script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 <!-- ★ LOGO（留给 Peng）：放一个字标/Logo，居中。示意：
-<p align="center"><img src="docs/logo.svg" alt="AI Slide Producer" width="320"></p> -->
+<p align="center"><img src="docs/logo.svg" alt="AI PPT Forge" width="320"></p> -->
 
-<h1 align="center">AI Slide Producer</h1>
+<h1 align="center">AI PPT Forge</h1>
 
 <p align="center"><b>一句话 · 一份资料 · 一个想法 → 能讲、能放映、能改的专业幻灯。</b></p>
 <p align="center">
@@ -28,7 +28,7 @@
 
 <!-- ★ HERO（留给 Peng）：首屏甩一张"成品长这样"——一张漂亮成品幻灯的三连图（封面+内容+数据页），
      或一段 "主题 → deck" 的 GIF。这是最高杠杆的一张图，建议宽 ~860px。示意：
-<p align="center"><img src="docs/hero.png" alt="AI Slide Producer 成品示例" width="860"></p> -->
+<p align="center"><img src="docs/hero.png" alt="AI PPT Forge 成品示例" width="860"></p> -->
 
 ---
 
@@ -69,6 +69,18 @@
 | **可复用资产** | `slide_plan.json`、`style_lock.json`、每页图片 `prompts/`、风格 preset |
 
 样例（含 HTML 成品 + 全套中间产物）见 [`assets/examples/`](assets/examples/)。
+
+### 真实案例（持续补充）
+
+> 下面都是**用本 Skill 真实生成**的成品——非示意图、非手工美化。每个 case 走完整九步管线、`validate_html` 0 改动通过。
+
+**Case 01 · 观点型 editorial** ——「SpaceX 史上最大 IPO，但重点不是火箭」
+
+<p align="center"><img src="docs/cases/spacex-ipo.png" alt="真实案例：用 AI PPT Forge 生成的 6 页观点 deck《上市的，不是火箭》" width="840"></p>
+<p align="center"><sub><i><code>editorial-magazine</code> 风格 · 6 页观点弧（封面 → 反框架 → 数字锚 → 闭环 → 金句 → 收尾）· 模型按 <code>style_lock</code> 直写 HTML · <a href="assets/examples/spacex-ipo/">打开源文件 / 全套中间产物 →</a></i></sub></p>
+
+<!-- ★ 案例库（留给 Peng / 持续补充）：以后每多一个真实成品，复制上面一个 Case 块即可——
+     图放 docs/cases/<slug>.png（建议宽 ~840px，6 页合成图或三连图），配一行说明（风格 · 页数 · 看点）。 -->
 
 ---
 

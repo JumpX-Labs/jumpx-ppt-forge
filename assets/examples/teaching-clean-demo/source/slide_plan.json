@@ -1,6 +1,6 @@
 {
   "deck_meta": {
-    "deck_title": "AI Slide Producer 工作流",
+    "deck_title": "AI PPT Forge 工作流",
     "audience": "AI 课程学员",
     "total_pages": 4,
     "style_name": "teaching-clean",
@@ -17,7 +17,7 @@
       "page_title": "从粗糙想法到可见 Slides",
       "page_goal": "建立主题和价值承诺",
       "page_role_in_story": "cover",
-      "key_message": "AI Slide Producer 把一次性请求变成可复用的生产工作流。",
+      "key_message": "AI PPT Forge 把一次性请求变成可复用的生产工作流。",
       "on_slide_text": {
         "headline": "从粗糙想法到可见 Slides",
         "sub_headline": "一条带 Gate、Style Lock 和交付检查的工作流",

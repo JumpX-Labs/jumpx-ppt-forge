@@ -1,0 +1,36 @@
+{
+  "deck_title": "上市的，不是火箭",
+  "audience": "关注科技/投资的泛财经读者、想看懂这场 IPO 真正逻辑的人",
+  "canvas_ratio": "16:9",
+  "canvas_pixels": "1280x720",
+  "style_name": "editorial-magazine",
+  "primary_color": "#0A0A0B",
+  "accent_color": "#E0472E",
+  "background_color": "#F1EFEA",
+  "text_primary_color": "#0A0A0B",
+  "text_secondary_color": "#5E5A52",
+  "border_color": "#D8D1C3",
+  "color_palette": {
+    "primary_color": "#0A0A0B",
+    "accent_color": "#E0472E",
+    "background_color": "#F1EFEA",
+    "text_primary_color": "#0A0A0B",
+    "text_secondary_color": "#5E5A52",
+    "border_color": "#D8D1C3"
+  },
+  "font_heading": "Georgia, \"Times New Roman\", \"Noto Serif SC\", \"Songti SC\", serif",
+  "font_body": "Inter, \"Helvetica Neue\", \"Noto Sans SC\", \"PingFang SC\", sans-serif",
+  "image_style": "premium magazine cover composition, bold editorial typography, warm paper texture, deep ink contrast, restrained color blocks",
+  "density": "medium",
+  "layout_bias": "magazine",
+  "forbidden": [
+    "no generic grey SaaS cards",
+    "no cheap decorative gradients",
+    "no crowded sticker collage",
+    "no soft business clipart",
+    "no tiny unreadable labels",
+    "禁止编造未经证实的精确财务数字（估值/营收/订户具体数）当作事实；模型逻辑示意必须明确标注",
+    "禁止外链 / CDN / 远程字体 / 远程脚本",
+    "不堆全居中等大灰卡片网格"
+  ]
+}

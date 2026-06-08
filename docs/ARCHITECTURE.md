@@ -1,4 +1,4 @@
-# 架构 · AI Slide Producer
+# 架构 · AI PPT Forge
 
 > 这个 Skill 长什么样、各部分怎么协作。运行时 Agent 只需读 [`SKILL.md`](../SKILL.md)；本文给想理解/扩展它的人。
 
